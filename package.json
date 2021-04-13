@@ -1,0 +1,21 @@
+{
+  "name": "geocode-earth-autocomplete",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+    "downshift": "^6.1.2",
+    "esbuild": "^0.11.2",
+    "lodash.debounce": "^4.0.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js",
+    "clean": "rm -rf dist",
+    "dev": "node build.js --watch"
+  },
+  "author": "",
+  "license": "MIT"
+o}
