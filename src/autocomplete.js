@@ -4,6 +4,7 @@ import { createAutocomplete } from 'geocode-earth-core'
 import debounce from 'lodash.debounce'
 import {css, className as cn} from './styles'
 import strings from './strings'
+import { LocationMarker } from './icons'
 
 export default ({apiKey, options, onSelect: userOnSelectItem}) => {
   const [results, setResults] = useState([])
@@ -77,6 +78,7 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
                 key={item.properties.id}
                 {...getItemProps({ item, index })}
               >
+                <LocationMarker className={cn('result-item-icon')} />
                 {itemToString(item)}
               </li>
             ))}

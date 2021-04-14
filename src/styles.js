@@ -62,8 +62,17 @@ export const css = `
   }
 
   .${prefix}-result-item {
+    display: flex;
+    align-items: center;
     padding: 12px;
     cursor: pointer;
+  }
+
+  .${prefix}-result-item-icon {
+    margin-right: 10px;
+    color: #707f8e;
+    width: 20px;
+    height: 20px;
   }
 
   .${prefix}-result-item-active {
