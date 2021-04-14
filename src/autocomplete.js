@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from 'geocode-earth-core'
 import debounce from 'lodash.debounce'
-import styles from './styles'
+import {css, className as cn} from './styles'
 import strings from './strings'
 
 export default ({apiKey, options, onSelect: userOnSelectItem}) => {
@@ -56,29 +56,38 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
   })
 
   return (
-    <div style={styles.box}>
-      <label {...getLabelProps()} style={styles.label}>{strings.inputPlaceholder}</label>
-      <div style={styles.inputBox} {...getComboboxProps()}>
-        <input {...getInputProps()} spellCheck={false} style={styles.input} placeholder={strings.inputPlaceholder} />
-      </div>
-      <ol {...getMenuProps()} style={isOpen && results.length > 0 ? styles.results : { ...styles.results, display: 'none' }}>
-        {isOpen &&
-          results.map((item, index) => (
-            <li
-              style={
-                highlightedIndex === index
-                  ? { ...styles.resultItem, ...styles.resultItemActive }
-                  : styles.resultItem}
-              key={`${item}${index}`}
-              {...getItemProps({ item, index })}
-            >
-              {itemToString(item)}
-            </li>
-          ))}
-        <div style={styles.attribution}>
-          ©&nbsp;<a style={styles.attributionLink} href="https://geocode.earth">Geocode Earth</a>,&nbsp;<a style={styles.attributionLink} href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;<a style={styles.attributionLink} href="https://geocode.earth/guidelines">others</a>.
+    <>
+      <style>{css}</style>
+
+      <div className={cn()}>
+        <label {...getLabelProps()} className={cn('label')}>{strings.inputPlaceholder}</label>
+
+        <div {...getComboboxProps()} >
+          <input {...getInputProps()} spellCheck={false} placeholder={strings.inputPlaceholder} className={cn('input')} />
         </div>
-      </ol>
-    </div>
+
+        <ol {...getMenuProps()} className={(isOpen && results.length > 0) ? cn('results') : cn('results-empty')}>
+          {isOpen &&
+            results.map((item, index) => (
+              <li
+                className={
+                  highlightedIndex === index
+                    ? cn('result-item', 'result-item-active')
+                    : cn('result-item')}
+                key={`${item}${index}`}
+                {...getItemProps({ item, index })}
+              >
+                {itemToString(item)}
+              </li>
+            ))}
+
+          <div className={cn('attribution')}>
+            ©&nbsp;<a href="https://geocode.earth">Geocode Earth</a>,&nbsp;
+            <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;
+            <a href="https://geocode.earth/guidelines">others</a>.
+          </div>
+        </ol>
+      </div>
+    </>
   )
 }
