@@ -27,6 +27,7 @@ export const css = `
   }
 
   .${prefix}-input {
+    font-size: 16px;
     display: block;
     width: 100%;
     height: 45px;
@@ -41,6 +42,7 @@ export const css = `
   }
 
   .${prefix}-results {
+    font-size: 16px;
     position: absolute;
     top: calc(45px + 10px); ${/* height of input plus 10px spacing */''}
     left: 0;
