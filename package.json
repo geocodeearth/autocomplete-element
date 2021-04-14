@@ -12,9 +12,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node build.js",
-    "clean": "rm -rf dist",
-    "dev": "node build.js --watch"
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js --dev",
+    "clean": "rm -rf dist"
   },
   "author": "",
   "license": "MIT"
