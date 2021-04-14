@@ -92,13 +92,6 @@ const resultItemActive = {
   boxSizing: 'border-box'
 }
 
-// temporary display for the selected result
-const selectedResult = {
-  marginTop: '50px',
-  color: '#fff',
-  boxSizing: 'border-box'
-}
-
 export default {
   box,
   inputBox,
@@ -107,7 +100,6 @@ export default {
   results,
   resultItem,
   resultItemActive,
-  selectedResult,
   attribution,
   attributionLink
 }

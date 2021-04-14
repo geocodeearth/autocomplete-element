@@ -5,9 +5,8 @@ import debounce from 'lodash.debounce'
 import styles from './styles'
 import strings from './strings'
 
-export default ({apiKey, options}) => {
+export default ({apiKey, options, onSelect: userOnSelectItem}) => {
   const [results, setResults] = useState([])
-  const [selectedItem, setSelectedItem] = useState(null)
 
   // Geocode Earth Autocomplete Client
   const autocomplete = useRef(createAutocomplete(apiKey, options)).current
@@ -15,7 +14,6 @@ export default ({apiKey, options}) => {
   // search queries the autocomplete API
   const search = ({ inputValue }) => {
     if (inputValue === '') {
-      setSelectedItem(null)
       setResults([])
     } else {
       autocomplete(inputValue).then(({ features, discard }) => {
@@ -31,8 +29,12 @@ export default ({apiKey, options}) => {
   // debounced search function as the user types
   const onInputValueChange = useRef(debounce(search, 300)).current
 
-  // called when an item is selected
-  const onSelectItem = ({ selectedItem }) => setSelectedItem(selectedItem)
+  // called user-supplied callback when an item is selected
+  const onSelectItem = ({ selectedItem }) => {
+    if (typeof userOnSelectItem === 'function') {
+      userOnSelectItem(selectedItem)
+    }
+  }
 
   // turns an autocomplete result (feature) into a string
   const itemToString = ({ properties: { label } }) => label
@@ -77,13 +79,6 @@ export default ({apiKey, options}) => {
           ©&nbsp;<a style={styles.attributionLink} href="https://geocode.earth">Geocode Earth</a>,&nbsp;<a style={styles.attributionLink} href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;<a style={styles.attributionLink} href="https://geocode.earth/guidelines">others</a>.
         </div>
       </ol>
-
-      {/* temporarily show selected item, this will be moved out of this component */}
-      { selectedItem &&
-        <pre style={styles.selectedResult}>
-          {JSON.stringify(selectedItem, undefined, 4)}
-        </pre>
-      }
     </div>
   )
 }
