@@ -1,4 +1,5 @@
 const esbuild = require('esbuild')
+const fse = require('fs-extra')
 const pkg = require('../package.json')
 const cyan = (s) => `\x1b[36m${s}\x1b[0m` // tiny log helper for some color
 
@@ -33,6 +34,8 @@ if (process.argv.includes('--dev')) {
 
 } else {
   // PRODUCTION / DISTRIBUTION
+  fse.emptyDirSync('dist')
+
   esbuild.build({
     ...options,
     entryPoints: ['src/autocomplete.js'],
