@@ -24,6 +24,7 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
 
         setResults(features)
       })
+      .catch(console.error)
     }
   }
 
