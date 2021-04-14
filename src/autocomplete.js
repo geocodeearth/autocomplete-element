@@ -74,7 +74,7 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
                   highlightedIndex === index
                     ? cn('result-item', 'result-item-active')
                     : cn('result-item')}
-                key={`${item}${index}`}
+                key={item.properties.id}
                 {...getItemProps({ item, index })}
               >
                 {itemToString(item)}
