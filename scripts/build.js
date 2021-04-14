@@ -1,39 +1,48 @@
 const esbuild = require('esbuild')
+const pkg = require('../package.json')
 const cyan = (s) => `\x1b[36m${s}\x1b[0m` // tiny log helper for some color
 
-// esbuild options shared for production & dev builds
+// shared esbuild options
 const options = {
-  entryPoints: ['index.js'],
-  outfile: `dist/autocomplete.js`,
+  format: 'esm',
   bundle: true,
+  sourcemap: true,
   logLevel: 'info',
   logLimit: 0,
-  loader: { '.js': 'jsx' },
-  minify: true,
-  sourcemap: true,
-  define: {
-    'process.env.NODE_ENV': `"production"`
-  }
+  loader: { '.js': 'jsx' }
 }
 
-// for development we use esbuild to run a server that rebuilds on every request as well as serves our example HTML
-// IIFE uncompressed
+// DEVELOPMENT
+//
+// in development we bundle example/index.js on the fly using the
+// esbuild dev server, which also serves the example HTML
 if (process.argv.includes('--dev')) {
   esbuild.serve({
     servedir: 'example',
     port: 5000
   }, {
     ...options,
-    minify: false,
-    outfile: `example/${options.outfile}`,
+    entryPoints: ['example/index.js'],
+    outfile: `example/build.js`,
     define: {
-      'process.env.NODE_ENV': `"development"`
+      'process.env.NODE_ENV': `"development"`,
     },
   }).then(({host, port}) => {
     console.log('🔗 dev server running on %s\n', cyan(`http://${host}:${port}`))
   })
 
 } else {
-  // IIFE minified production
-  esbuild.build({...options}).catch(() => process.exit(1))
+  // PRODUCTION / DISTRIBUTION
+  esbuild.build({
+    ...options,
+    entryPoints: ['src/autocomplete.js'],
+    outfile: `dist/${pkg.name}.esm.js`,
+    external: Object.keys({
+      ...pkg.dependencies,
+      ...pkg.peerDependencies
+    }),
+    define: {
+      'process.env.NODE_ENV': `"production"`
+    }
+  }).catch(() => process.exit(1))
 }
