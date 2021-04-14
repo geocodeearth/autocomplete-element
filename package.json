@@ -2,6 +2,11 @@
   "name": "geocode-earth-autocomplete",
   "version": "0.0.1",
   "description": "",
+  "browser": "dist/geocode-earth-autocomplete.esm.js",
+  "files": [
+    "dist/*.js",
+    "dist/*.js.map"
+  ],
   "dependencies": {
     "downshift": "^6.1.2",
     "lodash.debounce": "^4.0.8"
