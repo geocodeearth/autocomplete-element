@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from 'geocode-earth-core'
 import debounce from 'lodash.debounce'
-import {css, className as cn} from './styles'
+import styles from './autocomplete.module.css'
 import strings from './strings'
 import { LocationMarker } from './icons'
 
@@ -58,39 +58,36 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
   })
 
   return (
-    <>
-      <style>{css}</style>
+    <div className={styles.autocomplete}>
+      <label {...getLabelProps()} className={styles.label}>{strings.inputPlaceholder}</label>
 
-      <div className={cn()}>
-        <label {...getLabelProps()} className={cn('label')}>{strings.inputPlaceholder}</label>
-
-        <div {...getComboboxProps()} >
-          <input {...getInputProps()} spellCheck={false} placeholder={strings.inputPlaceholder} className={cn('input')} />
-        </div>
-
-        <ol {...getMenuProps()} className={(isOpen && results.length > 0) ? cn('results') : cn('results-empty')}>
-          {isOpen &&
-            results.map((item, index) => (
-              <li
-                className={
-                  highlightedIndex === index
-                    ? cn('result-item', 'result-item-active')
-                    : cn('result-item')}
-                key={item.properties.id}
-                {...getItemProps({ item, index })}
-              >
-                <LocationMarker className={cn('result-item-icon')} />
-                {itemToString(item)}
-              </li>
-            ))}
-
-          <div className={cn('attribution')}>
-            ©&nbsp;<a href="https://geocode.earth">Geocode Earth</a>,&nbsp;
-            <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;
-            <a href="https://geocode.earth/guidelines">others</a>.
-          </div>
-        </ol>
+      <div {...getComboboxProps()} >
+        <input {...getInputProps()} spellCheck={false} placeholder={strings.inputPlaceholder} className={styles.input} />
       </div>
-    </>
+
+      <ol {...getMenuProps()} className={(isOpen && results.length > 0) ? styles.results : styles.resultsEmpty}>
+        {isOpen &&
+          results.map((item, index) => (
+            <li
+              className={
+                highlightedIndex === index
+                  ? `${styles.resultItem} ${styles.resultItemActive}`
+                  : styles.resultItem
+              }
+              key={item.properties.id}
+              {...getItemProps({ item, index })}
+            >
+              <LocationMarker className={styles.resultItemIcon} />
+              {itemToString(item)}
+            </li>
+          ))}
+
+        <div className={styles.attribution}>
+          ©&nbsp;<a href="https://geocode.earth">Geocode Earth</a>,&nbsp;
+          <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;
+          <a href="https://geocode.earth/guidelines">others</a>.
+        </div>
+      </ol>
+    </div>
   )
 }

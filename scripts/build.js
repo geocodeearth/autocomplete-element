@@ -1,4 +1,5 @@
 const esbuild = require('esbuild')
+const cssModulesPlugin = require('esbuild-css-modules-plugin')
 const fse = require('fs-extra')
 const pkg = require('../package.json')
 const cyan = (s) => `\x1b[36m${s}\x1b[0m` // tiny log helper for some color
@@ -10,7 +11,10 @@ const options = {
   sourcemap: true,
   logLevel: 'info',
   logLimit: 0,
-  loader: { '.js': 'jsx' }
+  loader: { '.js': 'jsx' },
+  plugins: [
+    cssModulesPlugin()
+  ]
 }
 
 // DEVELOPMENT
