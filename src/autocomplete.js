@@ -73,6 +73,9 @@ export default ({apiKey, options}) => {
               {itemToString(item)}
             </li>
           ))}
+        <div style={styles.attribution}>
+          ©&nbsp;<a style={styles.attributionLink} href="https://geocode.earth">Geocode Earth</a>,&nbsp;<a style={styles.attributionLink} href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;<a style={styles.attributionLink} href="https://geocode.earth/guidelines">others</a>.
+        </div>
       </ol>
 
       {/* temporarily show selected item, this will be moved out of this component */}

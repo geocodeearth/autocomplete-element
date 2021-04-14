@@ -41,13 +41,34 @@ const input = {
   boxSizing: 'border-box'
 }
 
+// attribution links below results, defined here above results so the results
+// can use its height
+const attribution = {
+  position: 'absolute',
+  bottom: 0,
+  width: '100%',
+  boxSizing: 'border-box',
+  padding: '0 12px',
+  height: '35px',
+  color: '#707f8e',
+  lineHeight: '35px',
+  fontSize: '12px',
+  textAlign: 'right'
+}
+
+const attributionLink = {
+  color: attribution.color,
+  textDecoration: 'underline',
+  boxSizing: 'border-box'
+}
+
 // list of results (ol)
 const results = {
   position: 'absolute',
   top: `calc(${input.height} + 10px)`,
   left: 0,
   margin: 0,
-  padding: 0,
+  padding: `0 0 ${attribution.height} 0`,
   width: '100%',
   listStyle: 'none',
   border: input.border,
@@ -86,5 +107,7 @@ export default {
   results,
   resultItem,
   resultItemActive,
-  selectedResult
+  selectedResult,
+  attribution,
+  attributionLink
 }
