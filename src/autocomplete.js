@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from 'geocode-earth-core'
 import debounce from 'lodash.debounce'
@@ -10,10 +10,12 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
   const [results, setResults] = useState([])
 
   // Geocode Earth Autocomplete Client
-  const autocomplete = useRef(createAutocomplete(apiKey, options)).current
+  const autocomplete = useMemo(() => {
+    return createAutocomplete(apiKey, options)
+  }, [apiKey, options])
 
   // search queries the autocomplete API
-  const search = ({ inputValue }) => {
+  const search = useCallback(({ inputValue }) => {
     if (inputValue === '') {
       setResults([])
     } else {
@@ -26,10 +28,13 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
       })
       .catch(console.error)
     }
-  }
+  }, [autocomplete])
 
-  // debounced search function as the user types
-  const onInputValueChange = useRef(debounce(search, 300)).current
+  // debounced search function
+  const onInputValueChange = useCallback(
+    debounce(search, 300, { trailing: true }),
+    [search]
+  )
 
   // called user-supplied callback when an item is selected
   const onSelectItem = ({ selectedItem }) => {
