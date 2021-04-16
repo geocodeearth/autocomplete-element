@@ -6,7 +6,7 @@ import styles from './autocomplete.module.css'
 import strings from './strings'
 import { LocationMarker } from './icons'
 
-export default ({apiKey, options, onSelect: userOnSelectItem}) => {
+export default ({apiKey, options, onSelect: userOnSelectItem, environment = window}) => {
   const [results, setResults] = useState([])
 
   // Geocode Earth Autocomplete Client
@@ -56,6 +56,7 @@ export default ({apiKey, options, onSelect: userOnSelectItem}) => {
     highlightedIndex,
     getItemProps,
   } = useCombobox({
+    environment,
     itemToString,
     items: results,
     onInputValueChange: onInputValueChange,

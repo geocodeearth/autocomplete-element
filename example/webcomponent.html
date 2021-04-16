@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geocode Earth Autocomplete JS Demo</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="box">
+    <div class="logo"></div>
+
+    <ge-autocomplete apiKey='ge-2550bcc43e8dd92e'></ge-autocomplete>
+    <pre id="result"></pre>
+  </div>
+
+  <script src="/webcomponent.dev.js"></script>
+  <script>
+    document.querySelectorAll('ge-autocomplete').forEach(el => {
+      el.addEventListener('ge:select', ({detail: {item}}) => {
+        console.debug(item)
+        document.querySelector('#result').innerHTML = JSON.stringify(item, undefined, 4)
+      })
+    })
+  </script>
+</body>
+</html>
