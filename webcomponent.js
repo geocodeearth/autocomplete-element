@@ -14,7 +14,7 @@ const eventPrefix = 'ge'
 // 1. dispatches custom events on the host
 // 2. copies the CSS from the owner (surrounding document) into the Shadow DOM
 // 3. create an `environment` for Downshift to add event listeners to
-const WebComponent = ({ apiKey, host }) => {
+const WebComponent = ({ apiKey, size, layers, boundary, focus, host }) => {
   // This is a hack: we look for a <style> element with an ID that looks like a SHA256 hash, which is what
   // is inserted into the owner’s <head> by the Autocomplete component. We then render these styles in the
   // Shadow DOM ourselves as otherwise they wouldn’t apply correctly. We don’t remove them from the owner
@@ -60,7 +60,12 @@ const WebComponent = ({ apiKey, host }) => {
 
   return <>
     <style>{css}</style>
-    <Autocomplete apiKey={apiKey} onSelect={onSelect} environment={environment} />
+    <Autocomplete
+      apiKey={apiKey}
+      options={{apiKey, size, layers, boundary, focus}}
+      onSelect={onSelect}
+      environment={environment}
+    />
   </>
 }
 
@@ -69,14 +74,22 @@ const WebComponent = ({ apiKey, host }) => {
 // a react component, rerendering it if the attributes change.
 class GEAutocomplete extends HTMLElement {
   static get observedAttributes() {
-    return ['apikey']
+    return ['apikey', 'layers', 'boundarygid', 'boundarycountry', 'focus']
   }
 
   // props returns element attributes converted to props to be passed on
   // to the react component
   get props () {
+    const [lat, lon] = this.getAttribute('focus')?.split(',')?.map(p => parseFloat(p.trim()))
+
     return {
-      apiKey: this.getAttribute('apikey').trim()
+      apiKey: this.getAttribute('apikey')?.trim(),
+      layers: this.getAttribute('layers')?.split(',')?.map(l => l.trim()),
+      boundary: {
+        country: this.getAttribute('boundarycountry')?.trim(),
+        gid: this.getAttribute('boundarygid')?.trim()
+      },
+      focus: { lat, lon }
     }
   }
 
