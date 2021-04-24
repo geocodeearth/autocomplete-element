@@ -6,13 +6,13 @@ import styles from './autocomplete.module.css'
 import strings from './strings'
 import { LocationMarker } from './icons'
 
-export default ({apiKey, options, onSelect: userOnSelectItem, environment = window}) => {
+export default ({apiKey, params, options, onSelect: userOnSelectItem, environment = window}) => {
   const [results, setResults] = useState([])
 
   // Geocode Earth Autocomplete Client
   const autocomplete = useMemo(() => {
-    return createAutocomplete(apiKey, options)
-  }, [apiKey, options])
+    return createAutocomplete(apiKey, params, options)
+  }, [apiKey, params, options])
 
   // search queries the autocomplete API
   const search = useCallback(({ inputValue }) => {
