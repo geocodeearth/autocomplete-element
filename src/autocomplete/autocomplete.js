@@ -3,8 +3,8 @@ import { useCombobox } from 'downshift'
 import { createAutocomplete } from 'geocode-earth-core'
 import debounce from 'lodash.debounce'
 import styles from './autocomplete.module.css'
-import strings from './strings'
-import { LocationMarker } from './icons'
+import strings from '../strings'
+import { LocationMarker } from '../icons'
 
 export default ({apiKey, params, options, onSelect: userOnSelectItem, environment = window}) => {
   const [results, setResults] = useState([])
