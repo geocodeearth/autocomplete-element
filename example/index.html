@@ -10,10 +10,23 @@
   <div class="box">
     <div class="logo"></div>
 
-    <div id="autocomplete"></div>
+    <ge-autocomplete
+      apiKey='ge-2550bcc43e8dd92e'
+      size='4'
+      lang='en'
+      boundary.country='de'
+    ></ge-autocomplete>
     <pre id="result"></pre>
   </div>
 
-  <script src="/index.dev.js"></script>
+  <script src="/webcomponent.dev.js"></script>
+  <script>
+    document.querySelectorAll('ge-autocomplete').forEach(el => {
+      el.addEventListener('ge:select', ({detail: {item}}) => {
+        console.debug(item)
+        document.querySelector('#result').innerHTML = JSON.stringify(item, undefined, 4)
+      })
+    })
+  </script>
 </body>
 </html>
