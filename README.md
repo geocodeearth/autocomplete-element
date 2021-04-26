@@ -1,6 +1,19 @@
 # Geocode Earth Autocomplete JS
 
-This repo contains an autocomplete component to be used with the Geocode Earth Autocomplete API.
+This repo contains an autocomplete Web Component for use with the [Geocode Earth](https://geocode.earth/) Autocomplete API.
+
+## Usage
+
+```html
+<ge-autocomplete
+  apikey='ge-abc123'
+  size='5'
+  lang='en'
+  boundary.country='de'
+></ge-autocomplete>
+```
+
+All available Autocomplete API parameters are supported and can be used by setting attributes on the element.
 
 ## Development
 
