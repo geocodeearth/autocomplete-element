@@ -6,8 +6,14 @@ import styles from './autocomplete.module.css'
 import strings from '../strings'
 import { LocationMarker } from '../icons'
 
+const emptyResults = {
+  text: '',
+  features: []
+}
+
 export default ({apiKey, params, options, onSelect: userOnSelectItem, environment = window}) => {
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState(emptyResults)
+  const [searchTerm, setSearchTerm] = useState('')
 
   // Geocode Earth Autocomplete Client
   const autocomplete = useMemo(() => {
@@ -15,26 +21,29 @@ export default ({apiKey, params, options, onSelect: userOnSelectItem, environmen
   }, [apiKey, params, options])
 
   // search queries the autocomplete API
-  const search = useCallback(({ inputValue }) => {
-    if (inputValue === '') {
-      setResults([])
-    } else {
-      autocomplete(inputValue).then(({ features, discard }) => {
-        if (discard) {
-          return
-        }
+  const search = useCallback(text => {
+    if (!text) return
 
-        setResults(features)
-      })
-      .catch(console.error)
-    }
+    autocomplete(text).then(({ features, discard }) => {
+      if (discard) {
+        return
+      }
+
+      setResults({ text, features })
+    })
+    .catch(console.error)
   }, [autocomplete])
 
-  // debounced search function
-  const onInputValueChange = useCallback(
+  const debouncedSearch = useCallback(
     debounce(search, 300, { trailing: true }),
     [search]
-  )
+   )
+
+  const onInputValueChange = ({ inputValue }) => {
+    setSearchTerm(inputValue)
+    if (inputValue === '') setResults(emptyResults)
+    debouncedSearch(inputValue)
+  }
 
   // called user-supplied callback when an item is selected
   const onSelectItem = ({ selectedItem }) => {
@@ -54,14 +63,16 @@ export default ({apiKey, params, options, onSelect: userOnSelectItem, environmen
     getInputProps,
     getComboboxProps,
     highlightedIndex,
-    getItemProps,
+    getItemProps
   } = useCombobox({
     environment,
     itemToString,
-    items: results,
+    items: results.features,
     onInputValueChange: onInputValueChange,
     onSelectedItemChange: onSelectItem
   })
+
+  const showResults = isOpen && searchTerm === results.text && results.features.length > 0
 
   return (
     <div className={styles.autocomplete}>
@@ -71,9 +82,9 @@ export default ({apiKey, params, options, onSelect: userOnSelectItem, environmen
         <input {...getInputProps()} spellCheck={false} placeholder={strings.inputPlaceholder} className={styles.input} />
       </div>
 
-      <ol {...getMenuProps()} className={(isOpen && results.length > 0) ? styles.results : styles.resultsEmpty}>
-        {isOpen &&
-          results.map((item, index) => (
+      <ol {...getMenuProps()} className={showResults ? styles.results : styles.resultsEmpty}>
+        {showResults &&
+          results.features.map((item, index) => (
             <li
               className={
                 highlightedIndex === index
