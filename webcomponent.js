@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import Autocomplete from './src/autocomplete'
+import compact from './src/compact'
 
 const customElementName = 'ge-autocomplete'
 
@@ -14,7 +15,7 @@ const eventPrefix = 'ge'
 // 1. dispatches custom events on the host
 // 2. copies the CSS from the owner (surrounding document) into the Shadow DOM
 // 3. create an `environment` for Downshift to add event listeners to
-const WebComponent = ({ apiKey, size, layers, boundary, focus, host }) => {
+const WebComponent = ({ host, ...autocompleteProps }) => {
   // This is a hack: we look for a <style> element with an ID that looks like a SHA256 hash, which is what
   // is inserted into the owner’s <head> by the Autocomplete component. We then render these styles in the
   // Shadow DOM ourselves as otherwise they wouldn’t apply correctly. We don’t remove them from the owner
@@ -61,8 +62,7 @@ const WebComponent = ({ apiKey, size, layers, boundary, focus, host }) => {
   return <>
     <style>{css}</style>
     <Autocomplete
-      apiKey={apiKey}
-      options={{apiKey, size, layers, boundary, focus}}
+      {...autocompleteProps}
       onSelect={onSelect}
       environment={environment}
     />
@@ -74,23 +74,60 @@ const WebComponent = ({ apiKey, size, layers, boundary, focus, host }) => {
 // a react component, rerendering it if the attributes change.
 class GEAutocomplete extends HTMLElement {
   static get observedAttributes() {
-    return ['apikey', 'layers', 'boundarygid', 'boundarycountry', 'focus']
+    return [
+      'apikey',
+      'lang',
+      'size',
+      'layers',
+      'sources',
+      'boundary.country',
+      'boundary.gid',
+      'boundary.circle.lat',
+      'boundary.circle.lon',
+      'boundary.circle.radius',
+      'boundary.rect.min_lat',
+      'boundary.rect.max_lon',
+      'boundary.rect.max_lat',
+      'boundary.rect.min_lon',
+      'focus.point.lat',
+      'focus.point.lon'
+    ]
   }
 
   // props returns element attributes converted to props to be passed on
   // to the react component
   get props () {
-    const [lat, lon] = this.getAttribute('focus')?.split(',')?.map(p => parseFloat(p.trim()))
-
-    return {
+    return compact({
       apiKey: this.getAttribute('apikey')?.trim(),
-      layers: this.getAttribute('layers')?.split(',')?.map(l => l.trim()),
-      boundary: {
-        country: this.getAttribute('boundarycountry')?.trim(),
-        gid: this.getAttribute('boundarygid')?.trim()
-      },
-      focus: { lat, lon }
-    }
+      params: compact({
+        lang: this.getAttribute('lang'),
+        size: parseInt(this.getAttribute('size')),
+        layers: this.getAttribute('layers')?.split(',').map(l => l.trim()),
+        sources: this.getAttribute('sources')?.split(',').map(l => l.trim()),
+        boundary: compact({
+          country: this.getAttribute('boundary.country'),
+          gid: this.getAttribute('boundary.gid'),
+          circle: compact({
+            lat: parseFloat(this.getAttribute('boundary.circle.lat')),
+            lon: parseFloat(this.getAttribute('boundary.circle.lon')),
+            radius: parseFloat(this.getAttribute('boundary.circle.radius'))
+          }),
+          rect: compact({
+            minLon: parseFloat(this.getAttribute('boundary.circle.rect.min_lon')),
+            maxLon: parseFloat(this.getAttribute('boundary.circle.rect.max_lon')),
+            minLat: parseFloat(this.getAttribute('boundary.circle.rect.min_lat')),
+            maxLat: parseFloat(this.getAttribute('boundary.circle.rect.max_lat'))
+          })
+        }),
+        focusPoint: compact({
+          lat: parseFloat(this.getAttribute('focus.point.lat')),
+          lon: parseFloat(this.getAttribute('focus.point.lon'))
+        })
+      }),
+      options: compact({
+        host: this.getAttribute('__host')
+      })
+    })
   }
 
   connectedCallback () {
