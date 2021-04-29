@@ -11,7 +11,7 @@ const emptyResults = {
   features: []
 }
 
-export default ({apiKey, params, options, onSelect: userOnSelectItem, environment = window}) => {
+export default ({apiKey, params, options, placeholder = strings.inputPlaceholder, onSelect: userOnSelectItem, environment = window}) => {
   const [results, setResults] = useState(emptyResults)
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -76,10 +76,10 @@ export default ({apiKey, params, options, onSelect: userOnSelectItem, environmen
 
   return (
     <div className={styles.autocomplete}>
-      <label {...getLabelProps()} className={styles.label}>{strings.inputPlaceholder}</label>
+      <label {...getLabelProps()} className={styles.label}>{placeholder}</label>
 
       <div {...getComboboxProps()} >
-        <input {...getInputProps()} spellCheck={false} placeholder={strings.inputPlaceholder} className={styles.input} />
+        <input {...getInputProps()} spellCheck={false} placeholder={placeholder} className={styles.input} />
       </div>
 
       <ol {...getMenuProps()} className={showResults ? styles.results : styles.resultsEmpty}>

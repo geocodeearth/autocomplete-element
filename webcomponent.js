@@ -76,6 +76,7 @@ class GEAutocomplete extends HTMLElement {
   static get observedAttributes() {
     return [
       'apikey',
+      'placeholder',
       'lang',
       'size',
       'layers',
@@ -99,6 +100,7 @@ class GEAutocomplete extends HTMLElement {
   get props () {
     return compact({
       apiKey: this.getAttribute('apikey')?.trim(),
+      placeholder: this.getAttribute('placeholder'),
       params: compact({
         lang: this.getAttribute('lang'),
         size: parseInt(this.getAttribute('size')),
