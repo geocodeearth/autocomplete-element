@@ -77,6 +77,7 @@ class GEAutocomplete extends HTMLElement {
     return [
       'apikey',
       'placeholder',
+      'debounce',
       'lang',
       'size',
       'layers',
@@ -101,6 +102,7 @@ class GEAutocomplete extends HTMLElement {
     return compact({
       apiKey: this.getAttribute('apikey')?.trim(),
       placeholder: this.getAttribute('placeholder'),
+      debounce: parseInt(this.getAttribute('debounce')),
       params: compact({
         lang: this.getAttribute('lang'),
         size: parseInt(this.getAttribute('size')),

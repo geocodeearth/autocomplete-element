@@ -11,7 +11,15 @@ const emptyResults = {
   features: []
 }
 
-export default ({apiKey, params, options, placeholder = strings.inputPlaceholder, onSelect: userOnSelectItem, environment = window}) => {
+export default ({
+  apiKey,
+  params,
+  options,
+  placeholder = strings.inputPlaceholder,
+  debounce: debounceWait = 300,
+  onSelect: userOnSelectItem,
+  environment = window
+}) => {
   const [results, setResults] = useState(emptyResults)
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -35,7 +43,7 @@ export default ({apiKey, params, options, placeholder = strings.inputPlaceholder
   }, [autocomplete])
 
   const debouncedSearch = useCallback(
-    debounce(search, 300, { trailing: true }),
+    debounce(search, debounceWait, { trailing: true }),
     [search]
    )
 
