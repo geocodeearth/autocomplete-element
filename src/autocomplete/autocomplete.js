@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { useCombobox } from 'downshift'
-import { createAutocomplete } from 'geocode-earth-core'
+import { createAutocomplete } from '@geocodeearth/core-js'
 import debounce from 'lodash.debounce'
 import styles from './autocomplete.module.css'
 import strings from '../strings'
