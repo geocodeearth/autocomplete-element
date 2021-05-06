@@ -51,9 +51,7 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
   // dispatch a custom event when a user selects an item
   const onSelect = (item) => {
     const e = new CustomEvent(`${eventPrefix}:select`, {
-      detail: { item },
-      bubbles: true,
-      composed: true
+      detail: { item }
     })
 
     host.dispatchEvent(e)
