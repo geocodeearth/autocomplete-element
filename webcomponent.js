@@ -5,10 +5,6 @@ import compact from './src/compact'
 
 const customElementName = 'ge-autocomplete'
 
-// events dispatched on the custom element are prefixed with this string
-// to prevent conflicts
-const eventPrefix = 'ge'
-
 // WebComponent is a wrapper component for <Autocomplete>.
 // It has three major tasks, specifically it
 //
@@ -50,7 +46,7 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
 
   // dispatch a custom event when a user selects an item
   const onSelect = (item) => {
-    const e = new CustomEvent(`${eventPrefix}:select`, {
+    const e = new CustomEvent(`select`, {
       detail: { item }
     })
 
