@@ -49,14 +49,14 @@ export default ({
    )
 
   const onInputValueChange = ({ type, inputValue }) => {
-    setSearchTerm(inputValue)
-    if (inputValue === '') setResults(emptyResults)
+    const term = inputValue.trim()
+    setSearchTerm(term)
 
     // only search if the input value actually changed and not if an item was selected,
     // which also fires this callback. this prevents an additional request after the user has already
     // selected an item.
-    if (type === useCombobox.stateChangeTypes.InputChange && inputValue.length > 0) {
-      debouncedSearch(inputValue)
+    if (type === useCombobox.stateChangeTypes.InputChange && term.length > 0) {
+      debouncedSearch(term)
     }
   }
 
