@@ -53,11 +53,21 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
     host.dispatchEvent(e)
   }
 
+  // dispatch a custom event when an error occurs
+  const onError = (error) => {
+    const e = new CustomEvent(`error`, {
+      detail: { error }
+    })
+
+    host.dispatchEvent(e)
+  }
+
   return <>
     <style>{css}</style>
     <Autocomplete
       {...autocompleteProps}
       onSelect={onSelect}
+      onError={onError}
       environment={environment}
     />
   </>
