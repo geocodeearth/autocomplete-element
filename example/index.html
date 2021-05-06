@@ -22,9 +22,16 @@
   <script src="/webcomponent.dev.js"></script>
   <script>
     document.querySelectorAll('ge-autocomplete').forEach(el => {
-      el.addEventListener('ge:select', ({detail: {item}}) => {
-        console.debug(item)
-        document.querySelector('#result').innerHTML = JSON.stringify(item, undefined, 4)
+      el.addEventListener('select', (e) => {
+        console.log(e.currentTarget)
+
+        document.querySelector('#result').innerHTML = JSON.stringify(e.detail, undefined, 4)
+        console.debug(e.detail)
+      })
+
+      el.addEventListener('error', (e) => {
+        console.log(e.currentTarget)
+        console.error(e.detail)
       })
     })
   </script>
