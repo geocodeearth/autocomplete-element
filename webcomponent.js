@@ -44,23 +44,10 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
     }
   }, [])
 
-  // dispatch a custom event when a user selects an item
-  const onSelect = (item) => {
-    const e = new CustomEvent(`select`, {
-      detail: { item }
-    })
-
-    host.dispatchEvent(e)
-  }
-
-  // dispatch a custom event when an error occurs
-  const onError = (error) => {
-    const e = new CustomEvent(`error`, {
-      detail: { error }
-    })
-
-    host.dispatchEvent(e)
-  }
+  // dispatch custom events on the host (custom element)
+  const dispatchEvent = (name, detail) => host.dispatchEvent(new CustomEvent(name, { detail }))
+  const onSelect = (item) => dispatchEvent('select', item)
+  const onError = (error) => dispatchEvent('error', error)
 
   return <>
     <style>{css}</style>
