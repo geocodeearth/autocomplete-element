@@ -18,6 +18,7 @@ export default ({
   placeholder = strings.inputPlaceholder,
   debounce: debounceWait = 300,
   onSelect: userOnSelectItem,
+  onError = () => {},
   environment = window
 }) => {
   const [results, setResults] = useState(emptyResults)
@@ -39,7 +40,7 @@ export default ({
 
       setResults({ text, features })
     })
-    .catch(console.error)
+    .catch(onError)
   }, [autocomplete])
 
   const debouncedSearch = useCallback(
