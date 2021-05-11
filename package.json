@@ -24,5 +24,9 @@
     "clean": "rm -rf dist"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "cssModules": {
+    "inject": false,
+    "generateScopedName": "[local]"
+  }
 }
