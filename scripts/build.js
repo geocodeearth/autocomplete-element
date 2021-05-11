@@ -16,7 +16,10 @@ esbuild.build({
   minify: true,
   sourcemap: false,
   loader: { '.js': 'jsx' },
-  plugins: [ cssModulesPlugin() ],
+  plugins: [cssModulesPlugin({
+    inject: false,
+    generateScopedName: name => name
+  })],
   define: { 'process.env.NODE_ENV': '"production"' },
   logLevel: 'info',
   logLimit: 0

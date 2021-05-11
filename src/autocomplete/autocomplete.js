@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
 import debounce from 'lodash.debounce'
-import styles from './autocomplete.module.css'
+import styles, { css } from './autocomplete.module.css'
 import strings from '../strings'
 import { LocationMarker } from '../icons'
 
@@ -89,7 +89,8 @@ export default ({
 
   const showResults = isOpen && searchTerm === results.text && results.features.length > 0
 
-  return (
+  return <>
+    <style>{css}</style>
     <div className={styles.autocomplete}>
       <label {...getLabelProps()} className={styles.label}>{placeholder}</label>
 
@@ -121,5 +122,5 @@ export default ({
         </div>
       </ol>
     </div>
-  )
+  </>
 }

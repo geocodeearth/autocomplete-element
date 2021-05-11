@@ -19,7 +19,10 @@ esbuild.serve({
   logLimit: 0,
   loader: { '.js': 'jsx' },
   define: { 'process.env.NODE_ENV': `"development"` },
-  plugins: [cssModulesPlugin()]
+  plugins: [cssModulesPlugin({
+    inject: false,
+    generateScopedName: name => name
+  })]
 }).then(({ host, port }) => {
   console.log('🔗 dev server running on %s\n', cyan(`http://${host}:${port}`))
 })
