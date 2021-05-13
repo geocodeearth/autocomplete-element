@@ -7,6 +7,7 @@
     "dist/*.js",
     "dist/*.js.map"
   ],
+  "module": "dist/index.js",
   "dependencies": {
     "downshift": "^6.1.2",
     "lodash.debounce": "^4.0.8",

@@ -140,3 +140,5 @@ class GEAutocomplete extends HTMLElement {
 if (window.customElements.get(customElementName) === undefined) {
   window.customElements.define(customElementName, GEAutocomplete)
 }
+
+export default GEAutocomplete

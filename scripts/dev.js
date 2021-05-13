@@ -13,7 +13,7 @@ esbuild.serve({
 }, {
   entryPoints: ['webcomponent.js'],
   outfile: 'example/webcomponent.dev.js',
-  format: 'iife',
+  format: 'esm',
   bundle: true,
   sourcemap: true,
   logLevel: 'info',
