@@ -19,6 +19,7 @@ export default ({
   autoFocus = false,
   debounce: debounceWait = 300,
   onSelect: userOnSelectItem,
+  onChange: userOnChange,
   onError = () => {},
   environment = window
 }) => {
@@ -53,6 +54,11 @@ export default ({
   const onInputValueChange = ({ type, inputValue }) => {
     const term = inputValue.trim()
     setSearchTerm(term)
+
+    // call user-supplied onChange callback
+    if (typeof userOnChange === 'function') {
+      userOnChange(term)
+    }
 
     // only search if the input value actually changed and not if an item was selected,
     // which also fires this callback. this prevents an additional request after the user has already
