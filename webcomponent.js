@@ -118,6 +118,7 @@ class GEAutocomplete extends HTMLElement {
 
   connectedCallback () {
     this.render()
+    this.setCustomStyles()
   }
 
   render () {
@@ -125,6 +126,17 @@ class GEAutocomplete extends HTMLElement {
       <WebComponent {...this.props} host={this} />,
       this.shadowRoot
     )
+  }
+
+  // setCustomStyles looks for a specific template tag inside the custom element
+  // and moves its content (expected to be a <style> tag) inside the Shadow DOM,
+  // which can be used to customize the styling of the component.
+  setCustomStyles () {
+    const styles = this.querySelector('template[style]')
+    if (styles?.content !== undefined) {
+      this.shadowRoot.appendChild(document.importNode(styles.content, true))
+      styles.remove()
+    }
   }
 
   attributeChangedCallback (_, oldValue, newValue) {
