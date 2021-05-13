@@ -103,8 +103,12 @@ class GEAutocomplete extends HTMLElement {
     })
   }
 
-  connectedCallback () {
+  constructor() {
+    super()
     this.attachShadow({ mode: 'open' })
+  }
+
+  connectedCallback () {
     this.render()
   }
 
