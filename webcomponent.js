@@ -120,10 +120,8 @@ class GEAutocomplete extends HTMLElement {
   }
 
   attributeChangedCallback (_, oldValue, newValue) {
-    // this callback is called once for every observed attribute before the
-    // connectedCallback with oldValue as null, in which case we just ignore
-    // it as the initial render will follow
-    if (oldValue === null || oldValue === newValue) {
+    // no need to re-render if the value hasn’t changed
+    if (oldValue === newValue) {
       return
     }
 
