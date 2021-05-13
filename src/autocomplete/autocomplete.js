@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
 import debounce from 'lodash.debounce'
@@ -16,6 +16,7 @@ export default ({
   params,
   options,
   placeholder = strings.inputPlaceholder,
+  autoFocus = false,
   debounce: debounceWait = 300,
   onSelect: userOnSelectItem,
   onError = () => {},
@@ -23,6 +24,7 @@ export default ({
 }) => {
   const [results, setResults] = useState(emptyResults)
   const [searchTerm, setSearchTerm] = useState('')
+  const inputRef = useRef()
 
   // Geocode Earth Autocomplete Client
   const autocomplete = useMemo(() => {
@@ -70,6 +72,13 @@ export default ({
   // turns an autocomplete result (feature) into a string
   const itemToString = ({ properties: { label } }) => label
 
+  // focus the input field if requested
+  useEffect(() => {
+    if (autoFocus === true) {
+      inputRef.current?.focus()
+    }
+  }, [autoFocus])
+
   // downshift combobox
   const {
     isOpen,
@@ -95,7 +104,7 @@ export default ({
       <label {...getLabelProps()} className={styles.label}>{placeholder}</label>
 
       <div {...getComboboxProps()} >
-        <input {...getInputProps()} spellCheck={false} placeholder={placeholder} className={styles.input} />
+        <input {...getInputProps({ref: inputRef})} spellCheck={false} placeholder={placeholder} className={styles.input} />
       </div>
 
       <ol {...getMenuProps()} className={showResults ? styles.results : styles.resultsEmpty}>
