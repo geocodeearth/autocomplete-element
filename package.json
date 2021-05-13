@@ -1,7 +1,8 @@
 {
-  "name": "geocode-earth-autocomplete",
+  "name": "@geocodeearth/autocomplete",
   "version": "0.0.1",
-  "description": "",
+  "repository": "geocodeearth/autocomplete",
+  "description": "A custom element for use with the Geocode Earth Autocomplete API.",
   "files": [
     "dist/*.js",
     "dist/*.js.map"
