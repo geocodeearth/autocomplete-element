@@ -1,6 +1,6 @@
 const esbuild = require('esbuild')
-const cssModulesPlugin = require('esbuild-css-modules-plugin')
-const { version, dependencies, cssModules } = require('../package.json')
+const inlineCSSPlugin = require('./esbuild-inline-css-plugin')
+const { version, dependencies } = require('../package.json')
 
 const entrypoint= 'webcomponent.js'
 const outDir = 'dist'
@@ -17,7 +17,7 @@ const options = {
   bundle: true,
   sourcemap: true,
   loader: { '.js': 'jsx' },
-  plugins: [cssModulesPlugin(cssModules)],
+  plugins: [inlineCSSPlugin],
   logLevel: 'info',
   logLimit: 0,
   banner: { js: banner }

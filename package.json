@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "esbuild": "^0.11.21",
-    "esbuild-css-modules-plugin": "^1.0.6",
     "fs-extra": "^9.1.0"
   },
   "scripts": {
@@ -26,9 +25,5 @@
     "clean": "rm -rf dist"
   },
   "author": "",
-  "license": "MIT",
-  "cssModules": {
-    "inject": false,
-    "generateScopedName": "[local]"
-  }
+  "license": "MIT"
 }

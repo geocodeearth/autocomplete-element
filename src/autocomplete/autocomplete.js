@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
 import debounce from 'lodash.debounce'
-import styles, { css } from './autocomplete.module.css'
+import css from './autocomplete.css'
 import strings from '../strings'
 import { LocationMarker } from '../icons'
 
@@ -106,31 +106,31 @@ export default ({
 
   return <>
     <style>{css}</style>
-    <div className={styles.autocomplete}>
-      <label {...getLabelProps()} className={styles.label}>{placeholder}</label>
+    <div className='autocomplete'>
+      <label {...getLabelProps()} className='label'>{placeholder}</label>
 
       <div {...getComboboxProps()} >
-        <input {...getInputProps({ref: inputRef})} spellCheck={false} placeholder={placeholder} className={styles.input} />
+        <input {...getInputProps({ref: inputRef})} spellCheck={false} placeholder={placeholder} className='input' />
       </div>
 
-      <ol {...getMenuProps()} className={showResults ? styles.results : styles.resultsEmpty}>
+      <ol {...getMenuProps()} className={showResults ? 'results' : 'results-empty'}>
         {showResults &&
           results.features.map((item, index) => (
             <li
               className={
                 highlightedIndex === index
-                  ? `${styles.resultItem} ${styles.resultItemActive}`
-                  : styles.resultItem
+                  ? 'result-item result-item-active'
+                  : 'result-item'
               }
               key={item.properties.id}
               {...getItemProps({ item, index })}
             >
-              <LocationMarker className={styles.resultItemIcon} />
+              <LocationMarker className='result-item-icon' />
               {itemToString(item)}
             </li>
           ))}
 
-        <div className={styles.attribution}>
+        <div className='attribution'>
           ©&nbsp;<a href="https://geocode.earth">Geocode Earth</a>,&nbsp;
           <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>,&nbsp;and&nbsp;
           <a href="https://geocode.earth/guidelines">others</a>.
