@@ -1,9 +1,16 @@
 const esbuild = require('esbuild')
 const cssModulesPlugin = require('esbuild-css-modules-plugin')
-const { dependencies, cssModules } = require('../package.json')
+const { version, dependencies, cssModules } = require('../package.json')
 
 const entrypoint= 'webcomponent.js'
 const outDir = 'dist'
+const banner = `/**
+ * Geocode Earth Autocomplete Element v${version}
+ * Copyright (c) ${new Date().getFullYear()} Cleared for Takeoff, Inc.
+ *
+ * @license MIT
+ */`
+
 const options = {
   entryPoints: [entrypoint],
   format: 'esm',
@@ -13,7 +20,8 @@ const options = {
   plugins: [cssModulesPlugin(cssModules)],
   define: { 'process.env.NODE_ENV': '"production"' },
   logLevel: 'info',
-  logLimit: 0
+  logLimit: 0,
+  banner: { js: banner }
 }
 
 // unminified with external dependencies
