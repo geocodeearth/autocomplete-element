@@ -25,3 +25,7 @@ Both `core-js` and this library are private still, so use `npm link` like so:
 4. run `npm link <path to core js>`, `npm install`, `npm run dev`
 
 This will run a local development server to serve the example HTML as well as rebuild on every request.
+
+## License
+
+This code is licensed under the MIT license. Please see the `LICENSE` file for details.
