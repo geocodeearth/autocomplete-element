@@ -37,6 +37,6 @@ esbuild.build({
 // expected to be used via <script type="module">
 esbuild.build({
   ...options,
-  outfile: `${outDir}/index.wcb.js`,
+  outfile: `${outDir}/bundle.js`,
   minify: true,
 }).catch(() => process.exit(1))
