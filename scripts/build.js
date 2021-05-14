@@ -18,7 +18,6 @@ const options = {
   sourcemap: true,
   loader: { '.js': 'jsx' },
   plugins: [cssModulesPlugin(cssModules)],
-  define: { 'process.env.NODE_ENV': '"production"' },
   logLevel: 'info',
   logLimit: 0,
   banner: { js: banner }
