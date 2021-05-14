@@ -42,11 +42,9 @@ Once installed you can use the custom element:
 <ge-autocomplete api_key='ge-YOURKEY'></ge-autocomplete>
 ```
 
-All configuration happens through **attributes** on the element. `apikey` is the only required one (as without it you can’t access the API). All other available attributes are documented below.
-
-The element also emits **events** as a user interacts with it. This is how you can be notified when a user selects a result, for example.
-
 ## Attributes
+
+All configuration happens through **attributes** on the element. `api_key` is the only required one (as without it you can’t access the API). All other available attributes are documented below.
 
 ### `api_key`
 > **required**, no default
@@ -77,6 +75,17 @@ Sets whether the input should be automatically focused, can be set without an ex
 <ge-autocomplete api_key="…" autofocus></ge-autocomplete>
 ```
 
+## Events
+
+The element also emits **events** as a user interacts with it. This is how you can be notified when a user selects a result, for example. The `event.detail` payload contains details about the event.
+
+**Note:** These events do not bubble, which means listeners have to be attached to the element directly (see examples below).
+
+|Event&nbsp;Name|`event.detail`|Description|
+|---------------|--------------|-----------|
+|`select`       |`Feature`     |Dispatched when a user selects a suggested item from the list.|
+|`change`       |`string`      |Dispatched with every keystroke as the user types (not debounced).|
+|`error`        |`Error`       |Dispatched if an error occures during the request (for example if the rate limit was exceeded.) More on error handling below.|
 
 ## Development
 
