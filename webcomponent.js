@@ -19,6 +19,7 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
   const environment = useMemo(() => {
     const doc = host.shadowRoot.ownerDocument
     return {
+      Node,
       document: doc,
       addEventListener: (name, cb) => doc.addEventListener.bind(host.shadowRoot)(name, cb, { passive: true }),
       removeEventListener: (name, cb) => doc.removeEventListener.bind(host.shadowRoot)(name, cb, { passive: true })
