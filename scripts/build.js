@@ -2,7 +2,7 @@ const esbuild = require('esbuild')
 const inlineCSSPlugin = require('./esbuild-inline-css-plugin')
 const { version, dependencies } = require('../package.json')
 
-const entrypoint= 'webcomponent.js'
+const entrypoint= 'src/index.js'
 const outDir = 'dist'
 const banner = `/**
  * Geocode Earth Autocomplete Element v${version}

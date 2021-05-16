@@ -10,8 +10,8 @@ esbuild.serve({
   servedir: 'example',
   port: 5000
 }, {
-  entryPoints: ['webcomponent.js'],
-  outfile: 'example/webcomponent.dev.js',
+  entryPoints: ['src/index.js'],
+  outfile: 'example/index.dev.js',
   format: 'esm',
   bundle: true,
   sourcemap: true,

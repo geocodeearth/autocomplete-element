@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import ReactDOM from 'react-dom'
-import Autocomplete from './src/autocomplete'
-import compact from './src/compact'
+import Autocomplete from './autocomplete'
+import compact from './compact'
 
 const customElementName = 'ge-autocomplete'
 
