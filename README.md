@@ -4,8 +4,6 @@ An autocomplete element (Web Component) for use with the [Geocode Earth](https:/
 
 ## Installation
 
-### Via NPM
-
 ```bash
 $ npm install @geocodeearth/autocomplete-element
 ```
