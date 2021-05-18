@@ -7,7 +7,7 @@ An autocomplete element (Web Component) for use with the [Geocode Earth](https:/
 ### Via NPM
 
 ```bash
-$ npm install @geocodeearth/autocomplete
+$ npm install @geocodeearth/autocomplete-element
 ```
 
 The package is also available via GitHub Packages.
@@ -15,13 +15,13 @@ The package is also available via GitHub Packages.
 Then import it:
 
 ```js
-import '@geocodeearth/autocomplete'
+import '@geocodeearth/autocomplete-element'
 ```
 
 You can also use a script tag referencing it locally:
 
 ```html
-<script type="module" src="./node_modules/@geocodeearth/autocomplete/dist/bundle.js">
+<script type="module" src="./node_modules/@geocodeearth/autocomplete-element/dist/bundle.js">
 ```
 
 ## Basic Usage
