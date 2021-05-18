@@ -3,38 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geocode Earth Autocomplete JS Demo</title>
+  <title>Geocode Earth Autocomplete Element Example</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="box">
     <div class="logo"></div>
 
-    <ge-autocomplete
-      api_key='ge-9ccf84885004f273'
-      size='4'
-      lang='en'
-      boundary.country='de'
-      __host='api.dev.geocode.earth'
-    ></ge-autocomplete>
+    <ge-autocomplete api_key='ge-2550bcc43e8dd92e'></ge-autocomplete>
     <pre id="result"></pre>
   </div>
 
-  <script type="module" src="/index.dev.js"></script>
   <script>
-    document.querySelectorAll('ge-autocomplete').forEach(el => {
-      el.addEventListener('select', (e) => {
-        console.log(e.currentTarget)
+    const el = document.querySelector('ge-autocomplete')
 
-        document.querySelector('#result').innerHTML = JSON.stringify(e.detail, undefined, 4)
-        console.debug(e.detail)
-      })
+    el.addEventListener('select', ({ detail, currentTarget }) => {
+      console.log(currentTarget)
+      console.log(detail)
 
-      el.addEventListener('error', (e) => {
-        console.log(e.currentTarget)
-        console.error(e.detail)
-      })
+      document.querySelector('#result').innerHTML = JSON.stringify(detail, undefined, 4)
+    })
+
+    el.addEventListener('error', ({ detail, currentTarget }) => {
+      console.log(currentTarget)
+      console.error(detail)
     })
   </script>
+
+  <script type="module" src="/index.dev.js"></script>
 </body>
 </html>
