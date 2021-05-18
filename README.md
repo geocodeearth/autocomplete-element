@@ -68,6 +68,26 @@ Sets whether the input should be automatically focused, can be set without an ex
 
 Sets the language in which results are returned.
 
+### `sources`
+> defaults to all sources
+
+The Geocode Earth dataset is a combination of multiple data sources. This attribute can be used to limit results to a specific source (or multiple ones, comma separated). Please see our API documentation for a list of available sources: [geocode.earth/docs/reference/data_sources/](https://geocode.earth/docs/reference/data_sources/)
+
+### `focus.point.lat` & `focus.point.lon`
+> defaults to unfocused
+
+Sets latitude and longitude around which to focus results. In addition to providing results that are more relevant due to their proximity, setting a focus point is generally significantly faster than an unfocused query.
+
+### `boundary.country`
+### `boundary.gid`
+### `boundary.circle.lat`
+### `boundary.circle.lon`
+### `boundary.circle.radius`
+### `boundary.rect.min_lat`
+### `boundary.rect.max_lon`
+### `boundary.rect.max_lat`
+### `boundary.rect.min_lon`
+
 ## Events
 
 The element also emits **events** as a user interacts with it. This is how you can be notified when a user selects a result, for example. The `event.detail` payload contains details about the event.
