@@ -24,7 +24,6 @@ export default ({
   environment = window
 }) => {
   const [results, setResults] = useState(emptyResults)
-  const [searchTerm, setSearchTerm] = useState('')
   const inputRef = useRef()
 
   // Geocode Earth Autocomplete Client
@@ -37,7 +36,7 @@ export default ({
     if (!text) return
 
     autocomplete(text).then(({ features, discard }) => {
-      if (discard) {
+      if (discard || inputRef.current.value !== text) {
         return
       }
 
@@ -53,7 +52,9 @@ export default ({
 
   const onInputValueChange = ({ type, inputValue }) => {
     const term = inputValue.trim()
-    setSearchTerm(term)
+    if (term === '') {
+      setResults(emptyResults)
+    }
 
     // call user-supplied onChange callback
     if (typeof userOnChange === 'function') {
@@ -102,7 +103,7 @@ export default ({
     onSelectedItemChange: onSelectItem
   })
 
-  const showResults = isOpen && searchTerm === results.text && results.features.length > 0
+  const showResults = isOpen && results.features.length > 0
 
   return <>
     <style>{css}</style>
