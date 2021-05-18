@@ -65,6 +65,11 @@ Sets whether the input should be automatically focused, can be set without an ex
 <ge-autocomplete api_key="…" autofocus></ge-autocomplete>
 ```
 
+### `lang`
+> defaults to `Accept-Language` header, falls back to `en`
+
+Sets the language in which results are returned.
+
 ## Events
 
 The element also emits **events** as a user interacts with it. This is how you can be notified when a user selects a result, for example. The `event.detail` payload contains details about the event.
