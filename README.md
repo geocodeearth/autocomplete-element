@@ -4,17 +4,7 @@ An autocomplete element (Web Component) for use with the [Geocode Earth](https:/
 
 ## Installation
 
-### Via CDN
-
-The easiest way to get started is to load it directly from our CDN:
-
-```html
-<script type="module" src="https://js.geocode.earth/autocomplete.js">
-```
-
 ### Via NPM
-
-Alternatively you can install it with NPM:
 
 ```bash
 $ npm install @geocodeearth/autocomplete
