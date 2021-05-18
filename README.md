@@ -82,6 +82,10 @@ The element also emits **events** as a user interacts with it. This is how you c
 |`change`       |`string`      |Dispatched with every keystroke as the user types (not debounced).|
 |`error`        |`Error`       |Dispatched if an error occures during the request (for example if the rate limit was exceeded.) More on error handling below.|
 
+## Example
+
+Please see the `example` folder. You can follow the steps in the [**Development**](#development) section to run them directly, too.
+
 ## Development
 
 ```bash
