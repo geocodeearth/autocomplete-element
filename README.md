@@ -79,14 +79,10 @@ The element also emits **events** as a user interacts with it. This is how you c
 
 ## Development
 
-Both `core-js` and this library are private still, so use `npm link` like so:
-
-1. clone https://github.com/geocodeearth/core-js
-2. run `npm install`, `npm run build`, `npm link`
-3. clone https://github.com/geocodeearth/autocomplete
-4. run `npm link <path to core js>`, `npm install`, `npm run dev`
-
-This will run a local development server to serve the example HTML as well as rebuild on every request.
+```bash
+$ npm install
+$ npm run dev
+```
 
 ## License
 
