@@ -1,10 +1,58 @@
-.autocomplete {
-  position: relative;
-  font-family: sans-serif;
+* { box-sizing: border-box }
+
+:host {
+  --gray-100: #F3F4F6;
+  --gray-300: #D1D5DB;
+  --gray-500: #6B7280;
+  --gray-900: #111827;
+  --blue-600: #3182CE;
+
+  --border-radius: 5px;
+
+  --font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif;
+
+  --input-color: var(--gray-900);
+  --input-bg: #fff;
+  --input-border-color: var(--gray-300);
+  --input-shadow:
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+
+  --results-bg: #fff;
+  --results-z-index: 10;
+  --results-shadow:
+    rgb(255, 255, 255) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+  --result-item-color: var(--gray-900);
+  --result-item-border-color: var(--gray-100);
+  --result-item-active-color: var(--gray-900);
+  --result-item-active-bg: var(--gray-100);
+  --result-item-icon-color: var(--gray-500);
+
+  --attribution-color: var(--gray-500);
+  --attribution-color-hover: var(--blue-600);
+
+  display: block;
 }
 
-.autocomplete * {
-  box-sizing: border-box;
+.autocomplete {
+  position: relative;
+  font-size: 16px;
+  font-family: var(--font-family);
 }
 
 .label {
@@ -21,34 +69,35 @@
 
 .input {
   font-size: 16px;
+  font-family: var(--font-family);
+  color: var(--input-color);
+  background: var(--input-bg);
   display: block;
   width: 100%;
-  height: 45px;
-  border: solid 1px rgba(255,255,255,.5);
-  padding: 8px 12px;
-  border-radius: 5px;
+  border: 1px solid var(--input-border-color);
+  padding: 13px 12px;
+  border-radius: var(--border-radius);
   appearance: none;
   -webkit-appearance: none;
   -moz-ppearance: none;
   outline: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 10px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px;
+  box-shadow: var(--input-shadow);
 }
 
 .results {
   font-size: 16px;
   position: absolute;
-  top: calc(45px + 10px); /* height of input plus 10px spacing */
+  top: calc(46px + 10px); /* height of input plus 10px spacing */
   left: 0;
   margin: 0;
   padding: 0 0 35px 0; /* padding bottom equal to attribution height */
   width: 100%;
   list-style: none;
-  border: solid 1px rgba(255,255,255,.5);
-  border-radius: 5px;
-  background-color: #fff;
+  border-radius: var(--border-radius);
+  background: var(--results-bg);
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 10px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px;
-  z-index: 10;
+  box-shadow: var(--results-shadow);
+  z-index: var(--results-z-index);
 }
 
 .results-empty {
@@ -58,19 +107,22 @@
 .result-item {
   display: flex;
   align-items: center;
-  padding: 12px;
-  cursor: pointer;
+  padding: 13px 12px;
+  cursor: default;
+  color: var(--result-item-color);
+  border-bottom: 1px solid var(--result-item-border-color);
 }
 
 .result-item-icon {
+  color: var(--result-item-icon-color);
   margin-right: 10px;
-  color: #707f8e;
   width: 20px;
   height: 20px;
 }
 
 .result-item-active {
-  background-color: #eee;
+  color: var(--result-item-active-color);
+  background-color: var(--result-item-active-bg);
 }
 
 .attribution {
@@ -79,17 +131,17 @@
   width: 100%;
   padding: 0 12px;
   height: 35px;
-  color: #707f8e;
+  color: var(--attribution-color);
   line-height: 35px;
   font-size: 12px;
   text-align: right;
 }
 
 .attribution a {
-  color: #707f8e;
+  color: var(--attribution-color);
   text-decoration: underline;
 }
 
 .attribution a:hover {
-  color: #3273dc;
+  color: var(--attribution-color-hover);
 }
