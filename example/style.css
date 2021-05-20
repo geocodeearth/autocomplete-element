@@ -1,12 +1,15 @@
+* { box-sizing: border-box }
 html, body {
-  background: #2C5282;
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(141deg , #141b29 0%, #2b2f45 71%, #323158 100%);
 }
 
 .box {
-  padding: 0 20px;
-  margin: 100px auto;
+  padding: 100px 20px 0 20px;
+  margin: 0 auto;
   max-width: 750px;
 }
 
