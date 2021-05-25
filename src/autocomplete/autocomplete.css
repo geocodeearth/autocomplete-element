@@ -29,6 +29,8 @@
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 
+  --loading-color: var(--gray-500);
+
   --results-bg: #fff;
   --results-z-index: 10;
   --results-shadow:
@@ -75,13 +77,22 @@
   display: block;
   width: 100%;
   border: 1px solid var(--input-border-color);
-  padding: 13px 12px;
+  padding: 13px 55px 13px 12px; /* 12 + 31 + 12 = 55, loading spinner is 31 wide */;
   border-radius: var(--border-radius);
   appearance: none;
   -webkit-appearance: none;
   -moz-ppearance: none;
   outline: none;
   box-shadow: var(--input-shadow);
+}
+
+.loading {
+  position: absolute;
+  right: 12px;
+  top: 7px;
+  width: 31px;
+  height: 31px;
+  stroke: var(--loading-color);
 }
 
 .results {

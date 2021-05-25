@@ -4,7 +4,7 @@ import { createAutocomplete } from '@geocodeearth/core-js'
 import debounce from 'lodash.debounce'
 import css from './autocomplete.css'
 import strings from '../strings'
-import { LocationMarker } from '../icons'
+import { LocationMarker, Loading } from '../icons'
 
 const emptyResults = {
   text: '',
@@ -20,10 +20,11 @@ export default ({
   debounce: debounceWait = 300,
   onSelect: userOnSelectItem,
   onChange: userOnChange,
-  onError = () => {},
+  onError: userOnError,
   environment = window
 }) => {
   const [results, setResults] = useState(emptyResults)
+  const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef()
 
   // Geocode Earth Autocomplete Client
@@ -40,6 +41,7 @@ export default ({
         return
       }
 
+      setIsLoading(false)
       setResults({ text, features })
     })
     .catch(onError)
@@ -53,6 +55,7 @@ export default ({
   const onInputValueChange = ({ type, inputValue }) => {
     const term = inputValue.trim()
     if (term === '') {
+      setIsLoading(false)
       setResults(emptyResults)
     }
 
@@ -65,6 +68,7 @@ export default ({
     // which also fires this callback. this prevents an additional request after the user has already
     // selected an item.
     if (type === useCombobox.stateChangeTypes.InputChange && term.length > 0) {
+      setIsLoading(true)
       debouncedSearch(term)
     }
   }
@@ -73,6 +77,14 @@ export default ({
   const onSelectItem = ({ selectedItem }) => {
     if (typeof userOnSelectItem === 'function') {
       userOnSelectItem(selectedItem)
+    }
+  }
+
+  // call user-supplied error callback
+  const onError = (error) => {
+    setIsLoading(false) // hide loading indicator as this normally happens after a successful request
+    if (typeof userOnError === 'function') {
+      userOnError(error)
     }
   }
 
@@ -112,6 +124,7 @@ export default ({
 
       <div {...getComboboxProps()} >
         <input {...getInputProps({ref: inputRef})} spellCheck={false} placeholder={placeholder} className='input' />
+        {isLoading && <Loading className={'loading'} />}
       </div>
 
       <ol {...getMenuProps()} className={showResults ? 'results' : 'results-empty'}>
