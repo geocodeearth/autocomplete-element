@@ -29,7 +29,10 @@ export default ({
 
   // Geocode Earth Autocomplete Client
   const autocomplete = useMemo(() => {
-    return createAutocomplete(apiKey, params, options)
+    return createAutocomplete(apiKey, params, {
+      ...options,
+      client: `ge-autocomplete${typeof VERSION !== 'undefined' ? `-${VERSION}` : ''}`
+    })
   }, [apiKey, params, options])
 
   // search queries the autocomplete API

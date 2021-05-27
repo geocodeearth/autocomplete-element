@@ -20,7 +20,10 @@ const options = {
   plugins: [inlineCSSPlugin],
   logLevel: 'info',
   logLimit: 0,
-  banner: { js: banner }
+  banner: { js: banner },
+  define: {
+    VERSION: `"${version}"`
+  }
 }
 
 // unminified with external dependencies
