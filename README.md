@@ -79,14 +79,28 @@ The Geocode Earth dataset is a combination of multiple data sources. This attrib
 Sets latitude and longitude around which to focus results. In addition to providing results that are more relevant due to their proximity, setting a focus point is generally significantly faster than an unfocused query.
 
 ### `boundary.country`
+> defaults to unset (all countries)
+
+Sets a country filter to only return results in the specified country. Use a comma separated list of [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) country codes (2 or 3 letter variants).
+
 ### `boundary.gid`
-### `boundary.circle.lat`
-### `boundary.circle.lon`
-### `boundary.circle.radius`
-### `boundary.rect.min_lat`
-### `boundary.rect.max_lon`
-### `boundary.rect.max_lat`
-### `boundary.rect.min_lon`
+> defaults to unset (all GIDs)
+
+Filters results by parent ID, which can be used to search in areas smaller than a country and/or areas with shapes not well represented by rectangular bounding boxes.
+
+[Please see our documentation how to use this.](https://geocode.earth/docs/forward/customization/#restrict-results-by-parent-id)
+
+### `boundary.circle.lat`, `boundary.circle.lon`, `boundary.circle.radius`
+> defaults to unset
+
+Searches within a circular region. Useful to return results in a radius around a known point. Note: all three parameters need to be set. The `radius` is defined in kilometers.
+
+### `boundary.rect.min_lat`, `boundary.rect.max_lon`, `boundary.rect.max_lat`, `boundary.rect.min_lon`
+> defaults to unset
+
+Searches within a rectangular region. Same as with a circular boundary all 4 parameters have to be set.
+
+Tip: You can look up a bounding box for a known region using [geojson.io](https://geojson.io/).
 
 ## Events
 
