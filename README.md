@@ -6,7 +6,7 @@ This repo contains an autocomplete Web Component for use with the [Geocode Earth
 
 ```html
 <ge-autocomplete
-  apikey='ge-abc123'
+  api_key='ge-abc123'
   size='5'
   lang='en'
   boundary.country='de'

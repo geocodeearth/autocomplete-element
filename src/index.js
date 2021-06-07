@@ -51,7 +51,7 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
 class GEAutocomplete extends HTMLElement {
   static get observedAttributes() {
     return [
-      'apikey',
+      'api_key',
       'placeholder',
       'autofocus',
       'debounce',
@@ -77,7 +77,7 @@ class GEAutocomplete extends HTMLElement {
   // to the react component
   get props () {
     return compact({
-      apiKey: this.getAttribute('apikey')?.trim(),
+      apiKey: this.getAttribute('api_key')?.trim(),
       placeholder: this.getAttribute('placeholder'),
       autoFocus: this.getAttribute('autofocus') !== null,
       debounce: parseInt(this.getAttribute('debounce')),
