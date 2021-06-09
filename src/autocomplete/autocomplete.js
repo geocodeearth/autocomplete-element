@@ -17,7 +17,7 @@ export default ({
   options,
   placeholder = strings.inputPlaceholder,
   autoFocus = false,
-  debounce: debounceWait = 300,
+  debounce: debounceWait = 200,
   onSelect: userOnSelectItem,
   onChange: userOnChange,
   onError: userOnError,
