@@ -112,7 +112,7 @@ The element also emits **events** as a user interacts with it. This is how you c
 |---------------|--------------|-----------|
 |`select`       |`Feature`     |Dispatched when a user selects a suggested item from the list.|
 |`change`       |`string`      |Dispatched with every keystroke as the user types (not debounced).|
-|`error`        |`Error`       |Dispatched if an error occures during the request (for example if the rate limit was exceeded.) More on error handling below.|
+|`error`        |`Error`       |Dispatched if an error occures during the request (for example if the rate limit was exceeded.)|
 
 ## Example
 
