@@ -19,7 +19,7 @@ import '@geocodeearth/autocomplete-element'
 You can also use a script tag referencing it locally:
 
 ```html
-<script type="module" src="./node_modules/@geocodeearth/autocomplete-element/dist/bundle.js">
+<script type="module" src="./node_modules/@geocodeearth/autocomplete-element/dist/bundle.js"></script>
 ```
 
 ## Basic Usage
