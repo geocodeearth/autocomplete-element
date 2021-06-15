@@ -57,6 +57,7 @@ class GEAutocomplete extends HTMLElement {
       'debounce',
       'lang',
       'size',
+      'value',
       'layers',
       'sources',
       'boundary.country',
@@ -73,6 +74,16 @@ class GEAutocomplete extends HTMLElement {
     ]
   }
 
+  // getter & setter for the value attribute as _if_ any attribute is programatically
+  // changed then it’s this one
+  get value () {
+    return this.getAttribute('value')?.trim()
+  }
+
+  set value (text) {
+    this.setAttribute('value', text)
+  }
+
   // props returns element attributes converted to props to be passed on
   // to the react component
   get props () {
@@ -81,6 +92,7 @@ class GEAutocomplete extends HTMLElement {
       placeholder: this.getAttribute('placeholder'),
       autoFocus: this.getAttribute('autofocus') !== null,
       debounce: parseInt(this.getAttribute('debounce')),
+      value: this.value,
       params: compact({
         lang: this.getAttribute('lang'),
         size: parseInt(this.getAttribute('size')),
