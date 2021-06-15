@@ -16,6 +16,7 @@ export default ({
   params,
   options,
   placeholder = strings.inputPlaceholder,
+  value = '',
   autoFocus = false,
   debounce: debounceWait = 200,
   onSelect: userOnSelectItem,
@@ -37,8 +38,6 @@ export default ({
 
   // search queries the autocomplete API
   const search = useCallback(text => {
-    if (!text) return
-
     autocomplete(text).then(({ features, discard }) => {
       if (discard || inputRef.current.value !== text) {
         return
@@ -46,6 +45,7 @@ export default ({
 
       setIsLoading(false)
       setResults({ text, features })
+      openMenu()
     })
     .catch(onError)
   }, [autocomplete])
@@ -57,20 +57,27 @@ export default ({
 
   const onInputValueChange = ({ type, inputValue }) => {
     const term = inputValue.trim()
-    if (term === '') {
-      setIsLoading(false)
-      setResults(emptyResults)
-    }
 
     // call user-supplied onChange callback
     if (typeof userOnChange === 'function') {
       userOnChange(term)
     }
 
+    if (term === '') {
+      setIsLoading(false)
+      setResults(emptyResults)
+      return
+    }
+
     // only search if the input value actually changed and not if an item was selected,
     // which also fires this callback. this prevents an additional request after the user has already
     // selected an item.
-    if (type === useCombobox.stateChangeTypes.InputChange && term.length > 0) {
+    const searchOn = [
+      useCombobox.stateChangeTypes.InputChange,
+      useCombobox.stateChangeTypes.FunctionSetInputValue
+    ]
+
+    if (searchOn.includes(type)) {
       setIsLoading(true)
       debouncedSearch(term)
     }
@@ -101,6 +108,10 @@ export default ({
     }
   }, [autoFocus])
 
+  // if an initial value is provided trigger a search with that, which allows
+  // programmatically setting the value attribute, for example for a typewriter effect
+  useEffect(() => setInputValue(value), [value])
+
   // downshift combobox
   const {
     isOpen,
@@ -109,7 +120,9 @@ export default ({
     getInputProps,
     getComboboxProps,
     highlightedIndex,
-    getItemProps
+    getItemProps,
+    setInputValue,
+    openMenu
   } = useCombobox({
     environment,
     itemToString,
