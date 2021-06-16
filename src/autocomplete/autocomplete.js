@@ -28,13 +28,18 @@ export default ({
   const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef()
 
+  // setting params & options as state so they can be passed to useMemo as dependencies,
+  // which doesn’t work if they’re just objects as the internal comparison fails
+  const [apiParams, setApiParams] = useState(params)
+  const [apiOptions, setApiOptions] = useState(options)
+
   // Geocode Earth Autocomplete Client
   const autocomplete = useMemo(() => {
     return createAutocomplete(apiKey, params, {
       ...options,
       client: `ge-autocomplete${typeof VERSION !== 'undefined' ? `-${VERSION}` : ''}`
     })
-  }, [apiKey, params, options])
+  }, [apiKey, apiParams, apiOptions])
 
   // search queries the autocomplete API
   const search = useCallback(text => {
