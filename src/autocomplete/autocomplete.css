@@ -29,6 +29,7 @@
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 
+  --search-icon-color: var(--gray-500);
   --loading-color: var(--gray-500);
 
   --results-bg: #fff;
@@ -78,13 +79,23 @@
   display: block;
   width: 100%;
   border: 1px solid var(--input-border-color);
-  padding: 13px 55px 13px 12px; /* 12 + 31 + 12 = 55, loading spinner is 31 wide */;
+  padding: 13px 55px 13px 41px; /* 12 + 31 + 12 = 55, loading spinner is 31 wide */;
   border-radius: var(--border-radius);
   appearance: none;
   -webkit-appearance: none;
   -moz-ppearance: none;
   outline: none;
   box-shadow: var(--input-shadow);
+}
+
+.search-icon {
+  position: absolute;
+  color: var(--search-icon-color);
+  margin-right: 10px;
+  left: 12px;
+  top: 13px;
+  width: 20px;
+  height: 20px;
 }
 
 .loading {

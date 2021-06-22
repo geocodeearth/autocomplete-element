@@ -4,7 +4,7 @@ import { createAutocomplete } from '@geocodeearth/core-js'
 import debounce from 'lodash.debounce'
 import css from './autocomplete.css'
 import strings from '../strings'
-import { LocationMarker, Loading } from '../icons'
+import { LocationMarker, Loading, SearchIcon } from '../icons'
 
 const emptyResults = {
   text: '',
@@ -144,6 +144,7 @@ export default ({
       <label {...getLabelProps()} className='label'>{placeholder}</label>
 
       <div {...getComboboxProps()} >
+        <SearchIcon className='search-icon' />
         <input {...getInputProps({ref: inputRef})} spellCheck={false} placeholder={placeholder} className='input' />
         {isLoading && <Loading className={'loading'} />}
       </div>
