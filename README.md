@@ -114,6 +114,77 @@ The element also emits **events** as a user interacts with it. This is how you c
 |`change`       |`string`      |Dispatched with every keystroke as the user types (not debounced).|
 |`error`        |`Error`       |Dispatched if an error occures during the request (for example if the rate limit was exceeded.)|
 
+
+
+## Customization
+
+We did our best to design the element in such a way that it can be used as is in a lot of different contexts without needing to adjust how it looks. However, there certainly can be situations where customization is necessary. The element supports three different customization APIs:
+
+1. Custom CSS (variables)
+2. A string template as well as
+3. A row template
+
+### 1. Custom CSS
+
+We use CSS variables for almost all properties that you would want to customize. This includes the font family, background or shadow of the input and the hover state for a result just to name a few. For a list of all available variables please check the source CSS file directly ([`/src/autocomplete/autocomplete.css`](src/autocomplete/autocomplete.css)).
+
+You can adjust these variables by placing a `<style>` tag _inside_ the element, like so:
+
+```html
+<ge-autocomplete api_key="…">
+  <style>
+     :host {
+       --input-bg: salmon;
+       --input-color: green;
+       --loading-color: hotpink;
+    }
+  </style>
+</ge-autocomplete>
+```
+
+**Important:** While it is technically possible to override the actual classnames the element uses internally, we do not consider those part of the public API. That means they can change without a new major version, which could break your customization. The CSS variables on the other hand are specifically meant to be customized, which is why they will stay consistent even if the internal markup changes.
+
+If you would like to customize a property for which there is no variable we’d be happy to accept a pull-request or issue about it.
+
+### 2. String Template
+
+If you want to customize how a feature is turned into a string for rendering (in the results as well as the input field after it was selected), you can define a custom string template. This allows you to use the [lodash template language][_template] to access every property of the feature to build a custom string.
+
+```html
+<ge-autocomplete api_key="…">
+  <template string>
+    ${feature.properties.name} (${feature.properties.id}, ${feature.properties.source})
+  </template>
+</ge-autocomplete>
+```
+
+**Important:** Make sure to return a plain string here, no HTML. The reason for this is that this template will also be used in the input field itself after a result has been selected, which doesn’t support HTML.
+
+### 3. Row Template
+
+Similar to the string template mentioned above, you can use the row template to define how a single row in the results is rendered. The key here is that this supports full HTML:
+
+```html
+<ge-autocomplete api_key="…">
+  <template row>
+    <div class="custom-row ${feature.active ? 'custom-row--active' : null}">
+      <img src="/flags/${feature.properties.country_a.png" alt="${feature.country_a}">
+      <span>${feature.properties.label}</span>
+    </div>
+  </template>
+</ge-autocomplete>
+```
+
+**Pro Tip™:** Use the `active` property to check if the current row is being hovered over or activated via arrow keys.
+
+The example above could render a little flag icon for the result’s country, for example. You can customize the styling by defining custom classes in the same way you would customize the CSS variables. It’s best to prefix your classes to avoid conflicts with internal classnames of the element.
+
+The [lodash template language][_template] supports much more than just straight variables. Please refer to their docs directly to understand how it works. It’s pretty powerful.
+
+  [_template]: https://lodash.com/docs/4.17.15#template
+
+
+
 ## Example
 
 Please see the `example` folder. You can follow the steps in the [**Development**](#development) section to run them directly, too.
