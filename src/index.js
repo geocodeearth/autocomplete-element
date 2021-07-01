@@ -130,7 +130,20 @@ class GEAutocomplete extends HTMLElement {
   }
 
   connectedCallback () {
+    this.importStyles()
     this.render()
+  }
+
+  // importStyles looks for a specific template tag inside the custom element
+  // and moves its content (expected to be a <style> tag) inside the Shadow DOM,
+  // which can be used to customize the styling of the component.
+  importStyles() {
+    const styles = this.querySelector('style')
+    if (styles === null) return
+
+    // appending the node somewhere else _moves_ automatically it so we don’t have
+    // to explicitly remove it
+    this.shadowRoot.appendChild(styles)
   }
 
   render () {
