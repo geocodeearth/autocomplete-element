@@ -168,7 +168,7 @@ Similar to the string template mentioned above, you can use the row template to 
 <ge-autocomplete api_key="…">
   <template row>
     <div class="custom-row ${feature.active ? 'custom-row--active' : null}">
-      <img src="/flags/${feature.properties.country_a.png" alt="${feature.country_a}">
+      <img src="/flags/${feature.properties.country_a.png}" alt="${feature.properties.country_a}">
       <span>${feature.properties.label}</span>
     </div>
   </template>
