@@ -133,7 +133,7 @@ class GEAutocomplete extends HTMLElement {
 
   connectedCallback () {
     this.importStyles()
-    this.importRowTemplate()
+    this.importTemplates()
     this.render()
   }
 
@@ -149,21 +149,28 @@ class GEAutocomplete extends HTMLElement {
     this.shadowRoot.appendChild(styles)
   }
 
-  // importRowTemplate looks for a <template row> tag inside the custom element
-  // and stores its contents as a lodash template, which is then passed on to
-  // the autocomplete component
-  importRowTemplate() {
-    const tmpl = this.querySelector('template[row]')
-    if (tmpl === null) return
+  // importTemplates looks for custom <template> tags inside this custom element,
+  // parses their content as a lodash template and stores them to be passed on
+  // to the autocomplete component
+  importTemplates() {
+    const templates = {
+      stringTemplate: this.querySelector('template[string]'),
+      rowTemplate: this.querySelector('template[row]')
+    }
 
-    this.rowTemplate = _template(
-      _unescape(tmpl.innerHTML.trim()), // unescape is important for `<%` etc. lodash tags
-      { variable: 'feature' } // namespace the passed in Feature as `feature` so missing keys don’t throw
-    )
+    Object.keys(templates).forEach(k => {
+      const tmpl = templates[k]
+      if (tmpl === null) return
 
-    // contrary to the way custom styles are handled above we remove the <template> when we’re done
-    // so it doesn’t hang around in the host document (not the Shadow DOM)
-    tmpl.remove()
+      this[k] = _template(
+        _unescape(tmpl.innerHTML.trim()), // unescape is important for `<%` etc. lodash tags
+        { variable: 'feature' } // namespace the passed in Feature as `feature` so missing keys don’t throw
+      )
+
+      // contrary to the way custom styles are handled above we remove the <template> when we’re done
+      // so it doesn’t hang around in the host document (not the Shadow DOM)
+      tmpl.remove()
+    })
   }
 
   render () {
@@ -171,7 +178,9 @@ class GEAutocomplete extends HTMLElement {
       <WebComponent
         {...this.props}
         host={this}
-        rowTemplate={this.rowTemplate} />,
+        stringTemplate={this.stringTemplate}
+        rowTemplate={this.rowTemplate}
+      />,
       this.shadowRoot
     )
   }

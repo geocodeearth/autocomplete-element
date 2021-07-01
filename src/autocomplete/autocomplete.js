@@ -24,7 +24,8 @@ export default ({
   onChange: userOnChange,
   onError: userOnError,
   environment = window,
-  rowTemplate
+  rowTemplate,
+  stringTemplate
 }) => {
   const [results, setResults] = useState(emptyResults)
   const [isLoading, setIsLoading] = useState(false)
@@ -106,7 +107,13 @@ export default ({
   }
 
   // turns an autocomplete result (feature) into a string
-  const itemToString = ({ properties: { label } }) => label
+  const itemToString = (feature) => {
+    if (typeof stringTemplate === 'function') {
+      return stringTemplate(escape(feature))
+    }
+
+    return feature.properties.label
+  }
 
   // focus the input field if requested
   useEffect(() => {
