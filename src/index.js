@@ -2,6 +2,8 @@ import React, { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import Autocomplete from './autocomplete'
 import compact from './compact'
+import _template from 'lodash.template'
+import _unescape from 'lodash.unescape'
 
 const customElementName = 'ge-autocomplete'
 
@@ -131,6 +133,7 @@ class GEAutocomplete extends HTMLElement {
 
   connectedCallback () {
     this.importStyles()
+    this.importRowTemplate()
     this.render()
   }
 
@@ -146,9 +149,29 @@ class GEAutocomplete extends HTMLElement {
     this.shadowRoot.appendChild(styles)
   }
 
+  // importRowTemplate looks for a <template row> tag inside the custom element
+  // and stores its contents as a lodash template, which is then passed on to
+  // the autocomplete component
+  importRowTemplate() {
+    const tmpl = this.querySelector('template[row]')
+    if (tmpl === null) return
+
+    this.rowTemplate = _template(
+      _unescape(tmpl.innerHTML.trim()), // unescape is important for `<%` etc. lodash tags
+      { variable: 'feature' } // namespace the passed in Feature as `feature` so missing keys don’t throw
+    )
+
+    // contrary to the way custom styles are handled above we remove the <template> when we’re done
+    // so it doesn’t hang around in the host document (not the Shadow DOM)
+    tmpl.remove()
+  }
+
   render () {
     ReactDOM.render(
-      <WebComponent {...this.props} host={this} />,
+      <WebComponent
+        {...this.props}
+        host={this}
+        rowTemplate={this.rowTemplate} />,
       this.shadowRoot
     )
   }

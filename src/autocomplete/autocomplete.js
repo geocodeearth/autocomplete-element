@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce'
 import css from './autocomplete.css'
 import strings from '../strings'
 import { LocationMarker, Loading } from '../icons'
+import escape from '../escape'
 
 const emptyResults = {
   text: '',
@@ -22,7 +23,8 @@ export default ({
   onSelect: userOnSelectItem,
   onChange: userOnChange,
   onError: userOnError,
-  environment = window
+  environment = window,
+  rowTemplate
 }) => {
   const [results, setResults] = useState(emptyResults)
   const [isLoading, setIsLoading] = useState(false)
@@ -150,20 +152,33 @@ export default ({
 
       <ol {...getMenuProps()} className={showResults ? 'results' : 'results-empty'}>
         {showResults &&
-          results.features.map((item, index) => (
-            <li
-              className={
-                highlightedIndex === index
-                  ? 'result-item result-item-active'
-                  : 'result-item'
-              }
-              key={item.properties.id}
-              {...getItemProps({ item, index })}
-            >
-              <LocationMarker className='result-item-icon' />
-              {itemToString(item)}
-            </li>
-          ))}
+          results.features.map((item, index) => {
+            // render row with custom template, if available
+            // the feature itself is recursively escaped as we can’t guarantee safe data from the API
+            if (typeof rowTemplate === 'function') {
+              return <li
+                key={item.properties.id}
+                {...getItemProps({ item, index })}
+                dangerouslySetInnerHTML={{ __html: rowTemplate(escape({
+                  ...item,
+                  active: highlightedIndex === index
+                })) }}
+              />
+            } else {
+              return <li
+                className={
+                  highlightedIndex === index
+                    ? 'result-item result-item-active'
+                    : 'result-item'
+                }
+                key={item.properties.id}
+                {...getItemProps({ item, index })}
+              >
+                <LocationMarker className='result-item-icon' />
+                {itemToString(item)}
+              </li>
+            }
+          })}
 
         <div className='attribution'>
           ©&nbsp;<a href="https://geocode.earth">Geocode Earth</a>,&nbsp;
