@@ -107,9 +107,9 @@ export default ({
   }
 
   // turns an autocomplete result (feature) into a string
-  const itemToString = (feature) => {
+  const itemToString = (feature, extra) => {
     if (typeof stringTemplate === 'function') {
-      return stringTemplate(escape(feature))
+      return stringTemplate({feature, ...extra})
     }
 
     return feature.properties.label
@@ -166,12 +166,15 @@ export default ({
               return <li
                 key={item.properties.id}
                 {...getItemProps({ item, index })}
-                dangerouslySetInnerHTML={{ __html: rowTemplate(escape({
-                  ...item,
-                  active: highlightedIndex === index
-                })) }}
-              />
-            } else {
+                dangerouslySetInnerHTML={{
+                  __html: rowTemplate({
+                    feature: escape(item),
+                    active: highlightedIndex === index,
+                    searchTerm: inputRef.current.value,
+                    index
+                  })}}
+                  />
+                } else {
               return <li
                 className={
                   highlightedIndex === index
@@ -182,7 +185,11 @@ export default ({
                 {...getItemProps({ item, index })}
               >
                 <LocationMarker className='result-item-icon' />
-                {itemToString(item)}
+                {itemToString(item, {
+                  active: highlightedIndex === index,
+                  searchTerm: inputRef.current.value,
+                  index
+                })}
               </li>
             }
           })}

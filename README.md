@@ -153,7 +153,7 @@ If you want to customize how a feature is turned into a string for rendering (in
 ```html
 <ge-autocomplete api_key="…">
   <template string>
-    ${feature.properties.name} (${feature.properties.id}, ${feature.properties.source})
+    ${item.feature.properties.name} (${item.feature.properties.id}, ${item.feature.properties.source})
   </template>
 </ge-autocomplete>
 ```
@@ -167,15 +167,15 @@ Similar to the string template mentioned above, you can use the row template to 
 ```html
 <ge-autocomplete api_key="…">
   <template row>
-    <div class="custom-row ${feature.active ? 'custom-row--active' : null}">
-      <img src="/flags/${feature.properties.country_a.png}" alt="${feature.properties.country_a}">
-      <span>${feature.properties.label}</span>
+    <div class="custom-row ${item.active ? 'custom-row--active' : null}">
+      <img src="/flags/${item.feature.properties.country_a.png}" alt="${item.feature.properties.country_a}">
+      <span>${item.feature.properties.label}</span>
     </div>
   </template>
 </ge-autocomplete>
 ```
 
-**Pro Tip™:** Use the `active` property to check if the current row is being hovered over or activated via arrow keys.
+**Pro Tip™:** Use the `item.active` property to check if the current row is being hovered over or activated via arrow keys.
 
 The example above could render a little flag icon for the result’s country, for example. You can customize the styling by defining custom classes in the same way you would customize the CSS variables. It’s best to prefix your classes to avoid conflicts with internal classnames of the element.
 

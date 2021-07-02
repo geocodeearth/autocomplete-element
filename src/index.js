@@ -164,7 +164,7 @@ class GEAutocomplete extends HTMLElement {
 
       this[k] = _template(
         _unescape(tmpl.innerHTML.trim()), // unescape is important for `<%` etc. lodash tags
-        { variable: 'feature' } // namespace the passed in Feature as `feature` so missing keys don’t throw
+        { variable: 'item' } // namespace the passed in item so missing keys don’t throw
       )
 
       // contrary to the way custom styles are handled above we remove the <template> when we’re done
