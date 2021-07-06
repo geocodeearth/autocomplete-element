@@ -1,6 +1,6 @@
 {
   "name": "@geocodeearth/autocomplete-element",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "repository": "geocodeearth/autocomplete-element",
   "description": "A custom element for use with the Geocode Earth Autocomplete API.",
   "files": [
