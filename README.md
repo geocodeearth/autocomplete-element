@@ -175,7 +175,7 @@ Similar to the string template mentioned above, you can use the row template to 
 </ge-autocomplete>
 ```
 
-**Pro Tip™:** Use the `item.active` property to check if the current row is being hovered over or activated via arrow keys.
+**Pro Tip™:** Use the `item.active` property to check if the current row is being hovered over or activated via arrow keys. See below for additional properties.
 
 The example above could render a little flag icon for the result’s country, for example. You can customize the styling by defining custom classes in the same way you would customize the CSS variables. It’s best to prefix your classes to avoid conflicts with internal classnames of the element.
 
@@ -184,6 +184,18 @@ The [lodash template language][_template] supports much more than just straight 
   [_template]: https://lodash.com/docs/4.17.15#template
 
 
+### Additional Template Properties
+
+Inside a template you can access the following properties:
+
+|Property|Type|Contains|
+|--------|----|--------|
+|`item.feature`|Object|The selected item, a [GeoJSON Feature][geojsonfeature]|
+|`item.active`|Boolean|Whether or not the current item is active (hovered or selected with arrow keys)|
+|`item.searchTerm`|String|The current value of the search input field|
+|`item.index`|Number|The index of the item in the result list|
+
+  [geojsonfeature]: https://github.com/geocodeearth/core-js/blob/main/src/geojson.ts
 
 ## Example
 
