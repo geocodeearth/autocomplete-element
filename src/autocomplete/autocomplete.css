@@ -1,6 +1,8 @@
 * { box-sizing: border-box }
 
 :host {
+  all: initial; /* reset styles within Shadow DOM, no inheritance */
+
   --gray-100: #F3F4F6;
   --gray-300: #D1D5DB;
   --gray-500: #6B7280;
