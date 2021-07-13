@@ -26,6 +26,7 @@
   --input-color: var(--gray-900);
   --input-bg: #fff;
   --input-border-color: var(--gray-300);
+  --input-height: 47px;
   --input-shadow:
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
@@ -33,6 +34,7 @@
 
   --loading-color: var(--gray-500);
 
+  --results-spacing: 10px;
   --results-bg: #fff;
   --results-z-index: 10;
   --results-shadow:
@@ -76,6 +78,7 @@
   font-family: var(--font-family);
   color: var(--input-color);
   background: var(--input-bg);
+  height: var(--input-height);
   display: block;
   width: 100%;
   border: 1px solid var(--input-border-color);
@@ -100,7 +103,7 @@
 .results {
   font-size: 16px;
   position: absolute;
-  top: calc(46px + 10px); /* height of input plus 10px spacing */
+  top: calc(var(--input-height) + var(--results-spacing));
   left: 0;
   margin: 0;
   padding: 0 0 35px 0; /* padding bottom equal to attribution height */
