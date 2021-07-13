@@ -83,7 +83,7 @@
   border-radius: var(--border-radius);
   appearance: none;
   -webkit-appearance: none;
-  -moz-ppearance: none;
+  -moz-appearance: none;
   outline: none;
   box-shadow: var(--input-shadow);
 }
