@@ -33,6 +33,7 @@
     rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 
   --loading-color: var(--gray-500);
+  --loading-size:  31px;
 
   --results-spacing: 10px;
   --results-bg: #fff;
@@ -94,9 +95,9 @@
 .loading {
   position: absolute;
   right: 12px;
-  top: 7px;
-  width: 31px;
-  height: 31px;
+  top: calc((var(--input-height) - var(--loading-size)) / 2);
+  width: var(--loading-size);
+  height: var(--loading-size);
   stroke: var(--loading-color);
 }
 
