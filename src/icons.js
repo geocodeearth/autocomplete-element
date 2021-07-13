@@ -12,6 +12,12 @@ export const LocationMarker = ({className}) =>
     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
   </svg>
 
+
+export const Search = ({className}) =>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+
 /**
  * SVG Loaders (github.com/SamHerbert/SVG-Loaders)
  * Copyright (c) 2014 Sam Herbert
