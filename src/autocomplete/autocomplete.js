@@ -64,7 +64,7 @@ export default ({
    )
 
   const onInputValueChange = ({ type, inputValue }) => {
-    const term = inputValue.trim()
+    const term = inputValue
 
     // call user-supplied onChange callback
     if (typeof userOnChange === 'function') {
