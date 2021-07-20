@@ -47,11 +47,12 @@ export default ({
   // search queries the autocomplete API
   const search = useCallback(text => {
     autocomplete(text).then(({ features, discard }) => {
+      setIsLoading(false)
+
       if (discard || inputRef.current.value !== text) {
         return
       }
 
-      setIsLoading(false)
       setResults({ text, features })
       openMenu()
     })
