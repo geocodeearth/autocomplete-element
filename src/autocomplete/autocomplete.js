@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
-import debounce from 'lodash.debounce'
+import throttle from 'lodash.throttle'
 import css from './autocomplete.css'
 import strings from '../strings'
 import { LocationMarker, Loading, Search as SearchIcon } from '../icons'
@@ -19,7 +19,7 @@ export default ({
   placeholder = strings.inputPlaceholder,
   value = '',
   autoFocus = false,
-  debounce: debounceWait = 200,
+  throttle: throttleWait = 200,
   onSelect: userOnSelectItem,
   onChange: userOnChange,
   onError: userOnError,
@@ -59,8 +59,8 @@ export default ({
     .catch(onError)
   }, [autocomplete])
 
-  const debouncedSearch = useCallback(
-    debounce(search, debounceWait, { trailing: true }),
+  const throttledSearch = useCallback(
+    throttle(search, throttleWait, { leading: true, trailing: true }),
     [search]
    )
 
@@ -88,7 +88,7 @@ export default ({
 
     if (searchOn.includes(type)) {
       setIsLoading(true)
-      debouncedSearch(term)
+      throttledSearch(term)
     }
   }
 

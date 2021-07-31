@@ -39,10 +39,11 @@ All configuration happens through **attributes** on the element. `api_key` is th
 
 Your Geocode Earth API key. [Sign up for a free trial »](https://geocode.earth)
 
-### `debounce`
+### `throttle`
 > defaults to `300`
 
 Used to prevent firing a request for every keystroke as the user types, in milliseconds.
+This is passed directly to the [`_.throttle`](https://lodash.com/docs/4.17.15#throttle) function.
 
 ### `size`
 > defaults to `10`

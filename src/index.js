@@ -56,7 +56,7 @@ class GEAutocomplete extends HTMLElement {
       'api_key',
       'placeholder',
       'autofocus',
-      'debounce',
+      'throttle',
       'lang',
       'size',
       'value',
@@ -93,7 +93,7 @@ class GEAutocomplete extends HTMLElement {
       apiKey: this.getAttribute('api_key')?.trim(),
       placeholder: this.getAttribute('placeholder'),
       autoFocus: this.getAttribute('autofocus') !== null,
-      debounce: parseInt(this.getAttribute('debounce')),
+      throttle: parseInt(this.getAttribute('throttle')),
       value: this.value,
       params: compact({
         lang: this.getAttribute('lang'),
