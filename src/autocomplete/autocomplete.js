@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
-import debounce from 'lodash.debounce'
+import debounce from '../debounce'
 import css from './autocomplete.css'
 import strings from '../strings'
 import { LocationMarker, Loading, Search as SearchIcon } from '../icons'
@@ -60,7 +60,7 @@ export default ({
   }, [autocomplete])
 
   const debouncedSearch = useCallback(
-    debounce(search, debounceWait, { trailing: true }),
+    debounce(search, debounceWait),
     [search]
    )
 
