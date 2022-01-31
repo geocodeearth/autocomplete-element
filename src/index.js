@@ -31,6 +31,7 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
   // dispatch custom events on the host (custom element)
   const dispatchEvent = (name, detail) => host.dispatchEvent(new CustomEvent(name, { detail }))
   const onSelect = (item) => dispatchEvent('select', item)
+  const onFeatures = (items) => dispatchEvent('features', items)
   const onError = (error) => dispatchEvent('error', error)
   const onChange = (text) => {
     // reflect the value of the input field on the element by setting the `value` attribute
@@ -43,6 +44,7 @@ const WebComponent = ({ host, ...autocompleteProps }) => {
     onSelect={onSelect}
     onError={onError}
     onChange={onChange}
+    onFeatures={onFeatures}
     environment={environment}
   />
 }

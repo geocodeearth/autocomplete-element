@@ -22,6 +22,7 @@ export default ({
   throttle: throttleWait = 200,
   onSelect: userOnSelectItem,
   onChange: userOnChange,
+  onFeatures: userOnFeatures,
   onError: userOnError,
   environment = window,
   rowTemplate,
@@ -30,6 +31,13 @@ export default ({
   const [results, setResults] = useState(emptyResults)
   const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef()
+
+  // call user-supplied onFeatures callback
+  useEffect(() => {
+    if (typeof userOnFeatures === 'function') {
+      userOnFeatures(results.features)
+    }
+  }, [results])
 
   // setting params & options as state so they can be passed to useMemo as dependencies,
   // which doesn’t work if they’re just objects as the internal comparison fails
@@ -94,6 +102,8 @@ export default ({
 
   // called user-supplied callback when an item is selected
   const onSelectItem = ({ selectedItem }) => {
+    setResults(emptyResults)
+
     if (typeof userOnSelectItem === 'function') {
       userOnSelectItem(selectedItem)
     }

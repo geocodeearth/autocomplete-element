@@ -17,15 +17,25 @@
   <script>
     const el = document.querySelector('ge-autocomplete')
 
+    el.addEventListener('change', ({ detail, currentTarget }) => {
+      console.log('change', currentTarget)
+      console.log(detail)
+    })
+
+    el.addEventListener('features', ({ detail, currentTarget }) => {
+      console.log('features', currentTarget)
+      console.log(detail)
+    })
+
     el.addEventListener('select', ({ detail, currentTarget }) => {
-      console.log(currentTarget)
+      console.log('select', currentTarget)
       console.log(detail)
 
       document.querySelector('#result').innerHTML = JSON.stringify(detail, undefined, 4)
     })
 
     el.addEventListener('error', ({ detail, currentTarget }) => {
-      console.log(currentTarget)
+      console.log('error', currentTarget)
       console.error(detail)
     })
   </script>
