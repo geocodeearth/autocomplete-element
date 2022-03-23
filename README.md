@@ -69,10 +69,10 @@ Sets whether the input should be automatically focused, can be set without an ex
 
 Sets the language in which results are returned.
 
-### `sources`
-> defaults to all sources
+### `layers`
+> defaults to all layers
 
-The Geocode Earth dataset is a combination of multiple data sources. This attribute can be used to limit results to a specific source (or multiple ones, comma separated). Please see our API documentation for a list of available sources: [geocode.earth/docs/reference/data_sources/](https://geocode.earth/docs/reference/data_sources/)
+The Geocode Earth dataset is a combination of multiple data layers. This attribute can be used to limit results to a specific layer (or multiple ones, comma separated). Please see our API documentation for a list of available layers: [geocode.earth/docs/reference/data_layers/](https://geocode.earth/docs/reference/data_layers/)
 
 ### `focus.point.lat` & `focus.point.lon`
 > defaults to unfocused
