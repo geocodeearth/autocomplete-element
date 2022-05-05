@@ -14,6 +14,7 @@ const banner = `/**
 const options = {
   entryPoints: [entrypoint],
   format: 'esm',
+  target: 'es2019',
   bundle: true,
   sourcemap: true,
   loader: { '.js': 'jsx' },
