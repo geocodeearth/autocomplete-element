@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
+import useDeepCompareEffect from 'use-deep-compare-effect'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
 import throttle from 'lodash.throttle'
@@ -31,6 +32,7 @@ export default ({
   const [results, setResults] = useState(emptyResults)
   const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef()
+  const autocomplete = useRef()
 
   // call user-supplied onFeatures callback
   useEffect(() => {
@@ -39,22 +41,18 @@ export default ({
     }
   }, [results])
 
-  // setting params & options as state so they can be passed to useMemo as dependencies,
-  // which doesn’t work if they’re just objects as the internal comparison fails
-  const [apiParams, setApiParams] = useState(params)
-  const [apiOptions, setApiOptions] = useState(options)
-
-  // Geocode Earth Autocomplete Client
-  const autocomplete = useMemo(() => {
-    return createAutocomplete(apiKey, params, {
+  // deep compare is used to to only instantiate a new autocomplete API client if
+  // required properties for it change
+  useDeepCompareEffect(() => {
+    autocomplete.current = createAutocomplete(apiKey, params, {
       ...options,
       client: `ge-autocomplete${typeof VERSION !== 'undefined' ? `-${VERSION}` : ''}`
     })
-  }, [apiKey, apiParams, apiOptions])
+  }, [apiKey, params, options])
 
   // search queries the autocomplete API
   const search = useCallback(text => {
-    autocomplete(text).then(({ features, discard }) => {
+    autocomplete.current(text).then(({ features, discard }) => {
       setIsLoading(false)
 
       if (discard || inputRef.current.value !== text) {
