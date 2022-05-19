@@ -116,6 +116,8 @@ export default ({
     setIsLoading(false) // hide loading indicator as this normally happens after a successful request
     if (typeof userOnError === 'function') {
       userOnError(error)
+    } else {
+      console.error(error)
     }
   }
 
