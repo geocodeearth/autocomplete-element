@@ -44,10 +44,14 @@ export default ({
   // deep compare is used to to only instantiate a new autocomplete API client if
   // required properties for it change
   useDeepCompareEffect(() => {
-    autocomplete.current = createAutocomplete(apiKey, params, {
-      ...options,
-      client: `ge-autocomplete${typeof VERSION !== 'undefined' ? `-${VERSION}` : ''}`
-    })
+    try {
+      autocomplete.current = createAutocomplete(apiKey, params, {
+        ...options,
+        client: `ge-autocomplete${typeof VERSION !== 'undefined' ? `-${VERSION}` : ''}`
+      })
+    } catch (err) {
+      onError(err)
+    }
   }, [apiKey, params, options])
 
   // search queries the autocomplete API
