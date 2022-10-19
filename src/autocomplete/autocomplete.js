@@ -180,7 +180,7 @@ export default ({
             // the feature itself is recursively escaped as we can’t guarantee safe data from the API
             if (typeof rowTemplate === 'function') {
               return <li
-                key={item.properties.id}
+                key={item.properties.gid}
                 {...getItemProps({ item, index })}
                 dangerouslySetInnerHTML={{
                   __html: rowTemplate({
@@ -197,7 +197,7 @@ export default ({
                     ? 'result-item result-item-active'
                     : 'result-item'
                 }
-                key={item.properties.id}
+                key={item.properties.gid}
                 {...getItemProps({ item, index })}
               >
                 <LocationMarker className='result-item-icon' />
