@@ -52,7 +52,7 @@ export default ({
     } catch (err) {
       onError(err)
     }
-  }, [apiKey, params, options])
+  }, [apiKey, params, {...options}])
 
   // search queries the autocomplete API
   const search = useCallback(text => {
