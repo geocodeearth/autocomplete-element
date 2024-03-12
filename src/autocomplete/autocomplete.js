@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import useDeepCompareEffect from 'use-deep-compare-effect'
 import { useCombobox } from 'downshift'
 import { createAutocomplete } from '@geocodeearth/core-js'
 import throttle from 'lodash.throttle'
@@ -43,7 +42,7 @@ export default ({
 
   // deep compare is used to to only instantiate a new autocomplete API client if
   // required properties for it change
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     try {
       autocomplete.current = createAutocomplete(apiKey, params, {
         ...options,
@@ -52,7 +51,7 @@ export default ({
     } catch (err) {
       onError(err)
     }
-  }, [apiKey, params, {...options}])
+  }, [apiKey, params, { ...options }])
 
   // search queries the autocomplete API
   const search = useCallback(text => {
@@ -66,13 +65,13 @@ export default ({
       setResults({ text, features })
       openMenu()
     })
-    .catch(onError)
+      .catch(onError)
   }, [autocomplete])
 
   const throttledSearch = useCallback(
     throttle(search, throttleWait, { leading: true, trailing: true }),
     [search]
-   )
+  )
 
   const onInputValueChange = ({ type, inputValue }) => {
     const term = inputValue
@@ -124,7 +123,7 @@ export default ({
   // turns an autocomplete result (feature) into a string
   const itemToString = (feature, extra) => {
     if (typeof stringTemplate === 'function') {
-      return stringTemplate({feature, ...extra})
+      return stringTemplate({ feature, ...extra })
     }
 
     return feature.properties.label
@@ -156,13 +155,14 @@ export default ({
     environment,
     itemToString,
     items: results.features,
-    onInputValueChange: onInputValueChange,
+    onInputValueChange,
     onSelectedItemChange: onSelectItem
   })
 
   const showResults = isOpen && results.features.length > 0
 
-  return <>
+  return (
+<>
     <style>{css}</style>
     <div className='autocomplete'>
       <label {...getLabelProps()} className='label'>{placeholder}</label>
@@ -218,4 +218,5 @@ export default ({
       </ol>
     </div>
   </>
+)
 }
