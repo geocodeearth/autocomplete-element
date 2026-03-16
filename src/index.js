@@ -111,10 +111,10 @@ class GEAutocomplete extends HTMLElement {
             radius: parseFloat(this.getAttribute('boundary.circle.radius'))
           }),
           rect: compact({
-            minLon: parseFloat(this.getAttribute('boundary.circle.rect.min_lon')),
-            maxLon: parseFloat(this.getAttribute('boundary.circle.rect.max_lon')),
-            minLat: parseFloat(this.getAttribute('boundary.circle.rect.min_lat')),
-            maxLat: parseFloat(this.getAttribute('boundary.circle.rect.max_lat'))
+            minLon: parseFloat(this.getAttribute('boundary.rect.min_lon')),
+            maxLon: parseFloat(this.getAttribute('boundary.rect.max_lon')),
+            minLat: parseFloat(this.getAttribute('boundary.rect.min_lat')),
+            maxLat: parseFloat(this.getAttribute('boundary.rect.max_lat'))
           })
         }),
         focusPoint: compact({
