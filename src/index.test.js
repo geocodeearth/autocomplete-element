@@ -133,6 +133,19 @@ describe('GEAutocomplete props getter', () => {
     })
 
     describe('rect', () => {
+      it('maps all four rect attributes as floats', () => {
+        el.setAttribute('boundary.rect.min_lat', '40.477')
+        el.setAttribute('boundary.rect.max_lat', '40.917')
+        el.setAttribute('boundary.rect.min_lon', '-74.259')
+        el.setAttribute('boundary.rect.max_lon', '-73.700')
+        expect(el.props.params.boundary.rect).toEqual({
+          minLat: 40.477,
+          maxLat: 40.917,
+          minLon: -74.259,
+          maxLon: -73.700,
+        })
+      })
+
       it('omits rect when no rect attributes are set', () => {
         el.setAttribute('boundary.country', 'US')
         expect(el.props.params.boundary.rect).toBeUndefined()
