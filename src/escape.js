@@ -1,4 +1,4 @@
-import _escape from 'lodash.escape'
+import _escape from 'lodash/escape'
 
 // escape takes any value (primarily objects) and recursively escapes the values
 const escape = (v) => {
