@@ -20,11 +20,14 @@
     "use-deep-compare-effect": "^1.8.1"
   },
   "devDependencies": {
-    "esbuild": "^0.14.38",
-    "fs-extra": "^9.1.0"
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^12.1.5",
+    "esbuild": "^0.27.4",
+    "jsdom": "^29.0.0",
+    "vitest": "^4.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
     "build": "node scripts/build.js",
     "dev": "node scripts/dev.js",
     "clean": "rm -rf dist"

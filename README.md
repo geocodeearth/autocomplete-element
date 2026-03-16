@@ -207,6 +207,7 @@ Please see the `example` folder. You can follow the steps in the [**Development*
 
 ```bash
 $ npm install
+$ npm test
 $ npm run dev
 ```
 

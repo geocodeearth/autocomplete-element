@@ -14,4 +14,5 @@ jobs:
       - run: npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
+      - run: npm test
       - run: npm run build
