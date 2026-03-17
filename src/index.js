@@ -2,8 +2,8 @@ import React, { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import Autocomplete from './autocomplete'
 import compact from './compact'
-import _template from 'lodash.template'
-import _unescape from 'lodash.unescape'
+import _template from 'lodash/template'
+import _unescape from 'lodash/unescape'
 
 const customElementName = 'ge-autocomplete'
 
